@@ -120,6 +120,8 @@ Overfitting is harder to guard against because it is partly a discipline problem
 
 A backtest that passes these tests is not a guarantee. Markets change, and a strategy that worked for ten years may stop working. The backtesting framework provides evidence, not certainty. The team should treat strong backtest results with interest and some scepticism in equal measure.
 
+## Risk Management
+
 Risk management is not a feature that gets added at the end. It is a layer that runs through the entire platform, from the moment a strategy is being designed to every order it places in production.
 
 At the research stage, the platform provides tools for understanding the risk profile of a strategy before it goes anywhere near live capital. This means exposure analysis across factors, asset classes and geographies, as well as realistic stress testing against historical regimes. A strategy that looks attractive on raw returns but concentrates risk in ways the researcher has not examined is not ready, and the platform should make that visible early.
@@ -129,6 +131,8 @@ At the point of deployment, pre-trade risk checks sit between the strategy's int
 In production, the platform monitors risk continuously. Drawdown limits trigger alerts and, if configured, automatic position reduction or a full halt. Gross and net exposure are tracked in real time against defined thresholds. If a strategy begins behaving in a way that is inconsistent with its historical risk profile, the monitoring layer surfaces that before it becomes a problem.
 
 The kill switch is a first-class platform concept. Every live strategy can be stopped cleanly and immediately, positions can be unwound in an orderly way, and the system returns to a known state. This is not an emergency procedure bolted on as an afterthought. It is something the team tests regularly, the same way a kitchen tests its fire procedures.
+
+## The Impact of AI
 
 AI has changed what is possible at every stage of this work, and we use it throughout.
 
