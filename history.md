@@ -1,5 +1,15 @@
 # History
 
+## Executive Summary
+
+Quantitative trading has long suffered from a structural mismatch between how strategies are researched and how they are run in production. Researchers worked in MATLAB or Python; engineers reimplemented everything in C++. Knowledge fragmented across personal scripts. The same basic tools were rebuilt from scratch by every new hire. And when modern machine learning arrived, the C++ mandate became untenable — no team can reimplement PyTorch.
+
+This platform is built on a different premise. Research and production are not separate stages with a handover between them — they are the same environment. The container a researcher uses to develop a strategy is the same artifact that runs live. Configuration files, not code changes, govern the transition between environments. A clean interface to the prime broker means the strategy never needs to know whether its orders are going to a simulator or a live venue.
+
+The team that builds and uses this platform is not divided into researchers and developers. It resembles a professional kitchen: collaborative, integrated, and quality-conscious at every step. Common tools — data access, portfolio construction, performance analytics, live monitoring — are built once and shared. Project scaffolding is kept aligned across all strategy repositories by Rhiza, so infrastructure drift never becomes a maintenance burden. The platform exists so the team can spend their energy on the one thing that cannot be commoditised: the edge.
+
+---
+
 ## The Old Approach
 
 For much of the industry's history, quantitative research followed a well-worn pattern. A small group of researchers — mathematicians, physicists, and statisticians — would develop trading strategies in MATLAB or Python. These scripting environments were well suited to rapid experimentation: easy to iterate on, rich in numerical libraries, and close to the mathematical notation of the underlying models. A researcher could move from idea to backtest in days.
