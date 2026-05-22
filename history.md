@@ -25,3 +25,5 @@ The problem became irreversible with the rise of modern machine learning. Librar
 ## A New Direction
 
 This platform was built to close that gap. The goal is a single, unified environment where research and production are not separate stages with a handover in between, but a continuous spectrum. Researchers express ideas in high-level terms; the platform carries those ideas through to execution without a lossy translation step.
+
+Rather than separating researchers and developers in space and time — researchers upstream, engineers downstream, a wall between them — we believe in a checkerboard structure. Researchers and developers sit together, alternate, and collaborate continuously. A researcher working on a new signal works directly alongside the engineer responsible for the infrastructure that will run it. Knowledge flows in both directions: researchers gain an understanding of production constraints; engineers gain an understanding of the mathematical intent. The result is code that is both correct and deployable from the start, and a team that shares a common language.
