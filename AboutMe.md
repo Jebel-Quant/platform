@@ -22,7 +22,7 @@
 
 ## Intermezzo 2023 — Sabbatical at Stanford University
 
-Visiting researcher in the group of Prof Stephen Boyd. Co-author of a publication with Ron Kahn. Collaboration with Logan Bell, Nikhil Devanathan, and many more.
+Visiting researcher in the group of Prof Stephen Boyd. Co-author of a publication with Ron Kahn.
 
 ---
 
