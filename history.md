@@ -99,3 +99,17 @@ This separation of code from configuration is what makes promotion between envir
 The platform puts a clean interface in front of prime broker communication. The strategy expresses intent, buy this instrument in this quantity with this urgency, and the execution layer handles the translation into whatever protocol the broker expects, whether FIX or a proprietary API. The strategy does not need to know which broker it is talking to. Switching brokers or adding a new venue is a configuration change.
 
 In backtesting and paper trading the same execution interface is present, backed by a simulated fill engine rather than a live connection. The strategy code is identical across all environments. The broker, like everything else, is a configuration detail.
+
+## Jebel Quant Research
+
+Jebel Quant Research develops the tools and infrastructure that the platform described here is built on. The work spans several areas.
+
+**Project infrastructure.** Rhiza is the first publicly available tool from Jebel Quant Research. It solves the repo zoo problem for Python-heavy organisations by keeping project scaffolding continuously aligned across many repositories through a pull request based sync mechanism. It is already in use beyond Jebel Quant, including at Stanford's CVXGRP and Janus Henderson.
+
+**Data access.** A clean, versioned API into market data is foundational to everything else. Jebel Quant Research has developed tooling for sourcing, normalising and serving data across asset classes, with a consistent interface that works identically in research and production.
+
+**Portfolio construction.** Drawing on work developed in collaboration with Stephen Boyd's group at Stanford and informed by co-authored research with Ron Kahn, Jebel Quant Research has built portfolio construction tools grounded in convex optimisation. These cover mean-variance optimisation, transaction cost aware rebalancing and risk-constrained allocation.
+
+**Signal combination and performance analytics.** Tools for combining signals from multiple sources, evaluating strategy performance consistently and attributing returns across factors and time periods. The goal is a shared analytical vocabulary across the team rather than each researcher maintaining their own metrics.
+
+**Live trading infrastructure.** The container-based deployment model, configuration management framework and prime broker connectivity layer described in this document are products of Jebel Quant Research. They are designed to be reusable across strategies and, where appropriate, across organisations.
