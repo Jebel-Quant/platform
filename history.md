@@ -1,4 +1,10 @@
-# History
+# A Technology Vision for Quantitative Trading
+
+*Thomas Schmelzer — May 2026*
+
+*The following reflects my personal views on how a quantitative trading platform should be built, drawn from two decades working across systematic hedge funds, high-frequency trading, family offices, and sovereign wealth funds. It is both a diagnosis of what has gone wrong in the industry and a statement of how I believe it should be done.*
+
+---
 
 ## Executive Summary
 
