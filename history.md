@@ -102,7 +102,17 @@ The platform puts a clean interface in front of prime broker communication. The 
 
 In backtesting and paper trading the same execution interface is present, backed by a simulated fill engine rather than a live connection. The strategy code is identical across all environments. The broker, like everything else, is a configuration detail.
 
-## Jebel Quant Research
+## The Impact of AI
+
+AI has changed what is possible at every stage of this work, and we use it throughout.
+
+When building the platform itself, AI assistants accelerate the construction of the kitchen. Boilerplate that once took days to write and review can be generated, tested and iterated in hours. Documentation, test coverage, code review: tasks that historically competed with research time are now far less costly. The kitchen gets built faster, and with more of the team's attention available for the harder problems.
+
+In research, AI assists with signal generation, literature review, code prototyping and the kind of exploratory data analysis that used to require a full day of scripting. A researcher can move from a rough idea to a working prototype more quickly than before, which means more ideas get tested and more of them reach the stage where they can be seriously evaluated.
+
+In production, AI supports monitoring and anomaly detection. A live strategy generates a continuous stream of data: fills, positions, P&L, signal values, execution quality. Identifying when something has drifted outside normal behaviour is exactly the kind of pattern recognition that AI handles well. Problems that might previously have gone unnoticed for hours can surface in minutes.
+
+None of this replaces judgement. AI does not know which signals are real and which are spurious. It does not understand the difference between a model that is broken and a market that has changed. The researchers and developers on the team carry that responsibility. What AI does is remove the friction that previously consumed so much of their time, leaving more of it for the work that actually requires a human.
 
 Jebel Quant Research develops the tools and infrastructure that the platform described here is built on. The work spans several areas.
 
