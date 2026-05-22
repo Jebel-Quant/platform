@@ -47,3 +47,15 @@ One of the most practical answers to the environment problem is containerization
 For a quantitative trading platform this matters enormously. A backtest that silently produces different results in research and production, due to a library version mismatch or a difference in numerical defaults, is worse than no backtest at all — it creates false confidence. Containers make the environment a first-class, versioned, reproducible artifact, the same way code is. A strategy and the environment it runs in are deployed together, tested together, and promoted through stages together.
 
 Containers also make the kitchen analogy concrete. The platform delivers a fully equipped, standardised kitchen to every member of the team. A researcher starting on a new idea does not spend their first day installing dependencies and debugging environment issues. They open the container and start cooking.
+
+## Building the Kitchen
+
+If the platform is the kitchen, then building it means deciding what equipment belongs in every kitchen, regardless of what is being cooked. Several components are non-negotiable.
+
+**Data API.** The most critical piece of infrastructure is clean, reliable access to data. Every strategy, every backtest, every risk calculation depends on it. A well-designed data API abstracts away the complexity of sourcing, normalising, and versioning data across multiple providers and asset classes. Researchers should be able to express a data query in terms of what they need, not how to fetch it. Getting this layer right is the foundation everything else is built on.
+
+**Common strategy tooling.** Many of the building blocks of quantitative strategies are not proprietary — they are shared across the industry and across the team. Portfolio construction, signal combination, position sizing, transaction cost modelling: these should be implemented once, tested thoroughly, and made available to everyone. A researcher building a new strategy should not be reimplementing a Markowitz optimiser or a signal blending framework from scratch. The platform provides these as first-class, shared components.
+
+**Performance analytics.** Understanding why a strategy performed the way it did is as important as the performance itself. The platform provides a standard set of analytics — returns decomposition, drawdown analysis, factor attribution, turnover and cost accounting — that every strategy can be evaluated against. A common analytics layer also means results are comparable across strategies and across time, rather than each researcher rolling their own metrics.
+
+**Live monitoring.** A strategy in production is not finished — it is under continuous observation. The platform provides tooling for monitoring live strategies in real time: position and exposure tracking, P&L attribution, signal behaviour, execution quality, and alerting when something drifts outside expected bounds. The goal is that problems are visible before they become costly, and that the team spends their time understanding the market, not debugging infrastructure.
