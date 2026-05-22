@@ -108,7 +108,17 @@ The platform puts a clean interface in front of prime broker communication. The 
 
 In backtesting and paper trading the same execution interface is present, backed by a simulated fill engine rather than a live connection. The strategy code is identical across all environments. The broker, like everything else, is a configuration detail.
 
-## Risk Management
+## Backtesting
+
+A backtest is only useful if it is honest. The history of quantitative finance is littered with strategies that looked compelling on paper and disappointed in production, and the gap is rarely explained by bad ideas. It is almost always explained by a backtest that was, in some subtle way, too optimistic.
+
+The most common culprit is look-ahead bias: the strategy had access to information during the backtest that it could not have had at the time. This can happen through data that has been revised after the fact, through target variables that leak future information into the features, or simply through a timestamp that is off by one bar. The platform enforces strict point-in-time data semantics. Every data query is anchored to a historical timestamp, and the data API makes it structurally difficult to request information that would not have been available at that point.
+
+Transaction costs are the second place where backtests mislead. A strategy that ignores market impact, bid-ask spreads and borrow costs can look highly profitable while being economically meaningless at any realistic scale. The platform models transaction costs explicitly, and the cost model is calibrated against real execution data where available. A researcher should be able to see what a strategy's net performance looks like under conservative, realistic and optimistic cost assumptions before it is taken seriously.
+
+Overfitting is harder to guard against because it is partly a discipline problem rather than a tooling problem. The platform supports walk-forward analysis and out-of-sample evaluation as standard, making it easy to separate the in-sample period used for development from the out-of-sample period used for evaluation. But no tool prevents a researcher from repeatedly tweaking a strategy until the out-of-sample period looks good too. The culture of the team, and the scrutiny applied during strategy review, matters as much as the infrastructure.
+
+A backtest that passes these tests is not a guarantee. Markets change, and a strategy that worked for ten years may stop working. The backtesting framework provides evidence, not certainty. The team should treat strong backtest results with interest and some scepticism in equal measure.
 
 Risk management is not a feature that gets added at the end. It is a layer that runs through the entire platform, from the moment a strategy is being designed to every order it places in production.
 
