@@ -28,6 +28,8 @@ Because research lived in personal scripts, knowledge did not accumulate. Each r
 
 This also made it difficult to build on what had come before. Onboarding a new researcher often meant starting from scratch. Institutional knowledge lived in people rather than in code, and walked out the door when those people moved on.
 
+There is a subtler problem too. Researchers working in isolation tend to gravitate towards strategies they can implement themselves. The limit is often their programming skills rather than their research ideas. A researcher with strong mathematical intuition but modest software engineering experience will keep returning to the same simple constructions, not because they are the best ideas available but because they are the ones within reach. A shared platform with well-built common tools raises that ceiling. The researcher's ambition is no longer bounded by what they can personally code from scratch.
+
 ## The Handover Problem
 
 When a strategy was ready for production, it was passed to a team of software engineers to reimplement in C++. The rationale made sense: C++ offered the performance, determinism and operational robustness that live trading required. But the process was expensive.
