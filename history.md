@@ -38,6 +38,8 @@ The result was a slow pipeline. Research cycles were constrained by engineering 
 
 Modern machine learning made this untenable. Libraries like PyTorch represent millions of engineering hours: automatic differentiation, GPU kernels, distributed training, a vast ecosystem of pretrained models. Reimplementing any meaningful fraction of that in C++ is not a project; it is a decade-long programme. Teams that held to the C++ mandate found themselves unable to use these tools, and fell behind those that did.
 
+There is a human cost to the handover model that rarely gets discussed. When something goes wrong in a live strategy, the handover creates a ready-made alibi for everyone involved. The researcher points to the Python code and says it was correct. The engineer points to the C++ implementation and says it faithfully reproduced what was handed over. The operations team says they deployed exactly what they were given. Nobody is lying, and nobody fixes anything quickly. In a system built on a clean handover between separate groups, accountability diffuses precisely at the moment when it is most needed. The checkerboard structure is partly a response to this. When researchers and developers have built something together, they own it together.
+
 ## A New Direction
 
 This platform is built around a single environment for both research and production. Researchers express ideas in high-level terms and the platform carries them through to execution without a translation step.
