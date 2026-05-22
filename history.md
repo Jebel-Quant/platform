@@ -2,7 +2,7 @@
 
 *Thomas Schmelzer — May 2026*
 
-*The following reflects my personal views on how a quantitative trading platform should be built, drawn from two decades working across systematic hedge funds, high-frequency trading, family offices, and sovereign wealth funds. It is both a diagnosis of what has gone wrong in the industry and a statement of how I believe it should be done.*
+*The following reflects my personal views on how a quantitative trading platform should be built, drawn from two decades working across systematic hedge funds, high-frequency trading, family offices, and sovereign wealth funds. It traces how the industry arrived at its current practices — approaches that were entirely sensible given the technology of their time — and argues that the landscape has shifted enough to warrant a different way of working.*
 
 ---
 
