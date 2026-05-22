@@ -10,4 +10,20 @@
 
 ---
 
+## Career in Finance
+
+- **Winton Capital** — established CTA
+- **IMC Zug** — high-frequency statistical arbitrage (Sharpe ratio > 10)
+- **OxAM** — greenfield CTA
+- **Lobnek** — Geneva-based family office
+- **ADIA** — Abu Dhabi Investment Authority
+
+---
+
+## Intermezzo 2023 — Sabbatical at Stanford University
+
+Visiting researcher in the group of Prof Stephen Boyd. Co-author of a publication with Ron Kahn. Collaboration with Logan Bell, Nikhil Devanathan, and many more.
+
+---
+
 Algorithm by Schmelzer & Baillie.
