@@ -108,7 +108,17 @@ The platform puts a clean interface in front of prime broker communication. The 
 
 In backtesting and paper trading the same execution interface is present, backed by a simulated fill engine rather than a live connection. The strategy code is identical across all environments. The broker, like everything else, is a configuration detail.
 
-## The Impact of AI
+## Risk Management
+
+Risk management is not a feature that gets added at the end. It is a layer that runs through the entire platform, from the moment a strategy is being designed to every order it places in production.
+
+At the research stage, the platform provides tools for understanding the risk profile of a strategy before it goes anywhere near live capital. This means exposure analysis across factors, asset classes and geographies, as well as realistic stress testing against historical regimes. A strategy that looks attractive on raw returns but concentrates risk in ways the researcher has not examined is not ready, and the platform should make that visible early.
+
+At the point of deployment, pre-trade risk checks sit between the strategy's intent and the execution layer. Position limits, notional limits, sector and instrument concentration limits, and maximum order sizes are enforced before any order leaves the system. These limits are, like everything else, configuration. They can be tightened or loosened without touching the strategy code, and every change is versioned and auditable.
+
+In production, the platform monitors risk continuously. Drawdown limits trigger alerts and, if configured, automatic position reduction or a full halt. Gross and net exposure are tracked in real time against defined thresholds. If a strategy begins behaving in a way that is inconsistent with its historical risk profile, the monitoring layer surfaces that before it becomes a problem.
+
+The kill switch is a first-class platform concept. Every live strategy can be stopped cleanly and immediately, positions can be unwound in an orderly way, and the system returns to a known state. This is not an emergency procedure bolted on as an afterthought. It is something the team tests regularly, the same way a kitchen tests its fire procedures.
 
 AI has changed what is possible at every stage of this work, and we use it throughout.
 
