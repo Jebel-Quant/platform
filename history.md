@@ -120,6 +120,8 @@ In production, AI supports monitoring and anomaly detection. A live strategy gen
 
 None of this replaces judgement. AI does not know which signals are real and which are spurious. It does not understand the difference between a model that is broken and a market that has changed. The researchers and developers on the team carry that responsibility. What AI does is remove the friction that previously consumed so much of their time, leaving more of it for the work that actually requires a human.
 
+## Jebel Quant Research
+
 Jebel Quant Research develops the tools and infrastructure that the platform described here is built on. The work spans several areas.
 
 **Project infrastructure.** Rhiza is the first publicly available tool from Jebel Quant Research. It solves the repo zoo problem for Python-heavy organisations by keeping project scaffolding continuously aligned across many repositories through a pull request based sync mechanism. It is already in use beyond Jebel Quant, including at Stanford's CVXGRP and Janus Henderson. Relevant repos: [rhiza](https://github.com/Jebel-Quant/rhiza), [rhiza-cli](https://github.com/Jebel-Quant/rhiza-cli), [rhiza-tools](https://github.com/Jebel-Quant/rhiza-tools), [rhiza-hooks](https://github.com/Jebel-Quant/rhiza-hooks), [rhiza-education](https://github.com/Jebel-Quant/rhiza-education).
