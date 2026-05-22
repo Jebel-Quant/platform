@@ -78,6 +78,10 @@ Building the platform means deciding what belongs in every kitchen regardless of
 
 One principle applies across all of this. The kitchen must be built with researchers, not just for them. A platform designed only by engineers, however capable, risks solving the wrong problems. Researchers know what data they actually need, how they think about portfolio construction, what a useful performance report looks like and what slows their work down. That knowledge needs to be in the room when the platform is being built.
 
+In practice, the kitchen and the first strategies are often built in parallel. The team cannot wait for a complete platform before starting research, and waiting would be the wrong instinct anyway: building infrastructure in isolation, without real strategies pushing against it, tends to produce the wrong infrastructure. The feedback loop between strategy development and platform development is valuable and should not be broken.
+
+That said, we do recommend establishing a minimal set of common tools before the first strategies are implemented. At minimum this means a working data API, a basic portfolio construction library and a consistent project structure enforced by Rhiza. Without these in place, the first strategies will each invent their own solutions, and unpicking that fragmentation later is costly. A small shared foundation built early pays back many times over.
+
 ## Building the Strategies
 
 With the kitchen in place, strategies can be built in earnest. Each strategy lives in its own repository, but left unmanaged a collection of strategy repos quickly becomes a zoo. CI workflows diverge. Python versions drift. Linting configs split. A security fix lands in one repo and is missed by the rest. The same fragmentation that plagued the old world of personal scripts reappears at the infrastructure level.
