@@ -6,6 +6,12 @@ For much of the industry's history, quantitative research followed a well-worn p
 
 The artifacts of this process were scripts: dense, clever, and often deeply personal. Variable names made sense to their authors. Logic accumulated in layers over months or years. The code worked, and it embodied hard-won insight about markets.
 
+## Reinventing the Wheel
+
+A second, quieter problem ran alongside the first. Because research lived in personal scripts, knowledge did not accumulate. Each researcher built their own implementation of the same basic strategies — moving averages, momentum signals, mean-reversion filters, portfolio construction routines. There was no shared library, no common vocabulary in code. Two researchers in the same team might independently implement the same idea with subtly different conventions, different handling of edge cases, different numerical choices. When results diverged, nobody could easily tell why.
+
+This fragmentation also made it hard to build on prior work. Onboarding a new researcher meant starting from scratch rather than standing on the shoulders of what had come before. Institutional knowledge lived in people, not in code, and left with them when they moved on.
+
 ## The Handover Problem
 
 When a strategy was deemed ready for production, it was handed to a team of software engineers tasked with reimplementing it in C++. The rationale was sound — C++ offered the performance, determinism, and operational robustness that live trading demanded. But the process was costly.
@@ -13,6 +19,8 @@ When a strategy was deemed ready for production, it was handed to a team of soft
 The handover was rarely clean. Researchers and engineers spoke different languages, literally and figuratively. A MATLAB matrix operation that fit on one line might require careful memory management and numerical precision choices in C++. Edge cases that the script handled implicitly had to be made explicit. Bugs introduced during reimplementation were hard to catch because the reference implementation and the production implementation diverged the moment the handover began.
 
 The result was a slow, error-prone pipeline. Research cycles were bottlenecked by engineering capacity. The gap between idea and live strategy was measured in months. And every change to a live strategy — a parameter tweak, a new signal, a risk adjustment — risked restarting the handover process from scratch.
+
+The problem became irreversible with the rise of modern machine learning. Libraries like PyTorch represent millions of engineering hours: automatic differentiation, GPU kernels, distributed training, a vast ecosystem of pretrained models and community tooling. Reimplementing any meaningful fraction of that in C++ is not a project — it is a decade-long research programme. Teams that insisted on the C++ production mandate simply could not use these tools, and fell behind those that did.
 
 ## A New Direction
 
