@@ -212,10 +212,12 @@ content_slide(prs, "The Handover Problem", [
     "▸  Strategies passed to C++ engineers for production reimplementation",
     "▸  Handover rarely clean: translation errors, implicit edge cases, precision issues",
     "▸  Research cycles bottlenecked — months between idea and live strategy",
-    "▸  Every change to a live strategy risked restarting the process",
     "▸  PyTorch and modern ML simply cannot be reimplemented in C++",
-    "▸  When things go wrong, accountability diffuses across teams — nobody owns it",
-    "▸  The checkerboard: when teams build together, they own together",
+    "▸  History's verdict: the kitchen was never built",
+    "▸  Essential tools reinvented independently by every team — data APIs, portfolio tools, analytics",
+    "▸  Result: a sprawling collection of overlapping partial solutions, each owned by whoever wrote it",
+    "▸  When things go wrong, accountability diffuses — nobody owns it",
+    "▸  Discussed by Marcos Lopez de Prado; put into practice at ADIA's Team Q",
 ])
 
 # ── A NEW DIRECTION ───────────────────────────────────────────────────────────
@@ -223,7 +225,8 @@ divider_slide(prs, "A New Direction")
 
 content_slide(prs, "The Kitchen — A Better Analogy", [
     "▸  Assembly line model fails for knowledge work: interfaces are not fixed in advance",
-    "▸  Better image: the professional kitchen",
+    "▸  Lopez de Prado's car factory analogy: appealing but misleading",
+    "▸  Better image: the professional kitchen — familiar, collaborative, quality at every step",
     "▸  Every station visible to every other; head chef and junior cook share the same pressure",
     "▸  Quality is everyone's responsibility throughout — not inspected at the end",
     "▸  A chef does not build the oven: platform provides the environment",
