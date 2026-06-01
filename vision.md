@@ -80,6 +80,15 @@ a system built on a clean handover between separate groups, accountability diffu
 most needed. The checkerboard structure is partly a response to this. When researchers and developers have built
 something together, they own it together.
 
+The handover model can be made to work better. Shared interface definitions between research and engineering reduce
+ambiguity at the boundary. Strict versioning of the research artefact — the exact notebook, the exact data snapshot,
+the exact parameters — gives the engineering team something precise to reimplement rather than a moving target.
+Automated regression tests that compare research and production outputs on the same inputs catch divergence early,
+before it reaches live capital. These are real improvements and worth making. But they are patches. They reduce the
+cost of the translation step; they do not eliminate it. The fundamental problem is that translation step itself — the
+moment where one representation of an idea becomes another, and where something is always lost or changed in the
+crossing.
+
 ## A New Direction
 
 Our idea is built around a single environment for both research and production. The mechanism that makes this real is
@@ -90,13 +99,20 @@ familiar complaint — "it works on my machine" — loses its meaning when every
 Researchers express ideas in high-level terms and the platform carries them through to execution without a translation
 step.
 
-The old handover model borrowed, implicitly, from the assembly line: one group does its work and passes the output down
-the line. It is an appealing image, but it does not fit knowledge work. Assembly lines function because the interfaces
-between stations are fixed and fully specified in advance. In research and engineering, the interface is exactly what is
-hardest to define, and it changes as understanding develops. Treating it like a fixed handoff creates the appearance of
-process while undermining the collaboration that actually gets things done. The car factory analogy is discussed 
-by Marcos Lopez de Prado in his work on the industrialisation of quantitative finance, and the model was
-put into practice at ADIA's Team Q — where I had the opportunity to observe its strengths and its costs firsthand.
+The old handover model borrowed, implicitly, from an outdated idea of the factory: one group does its work and passes
+the output down the line. It is worth being precise about which factory. Henry Ford's assembly line was built on fixed
+interfaces, specialised stations and inspection at the end. A modern car factory looks nothing like this. Toyota's
+production system — quality checks at every station, workers empowered to stop the line, continuous feedback between
+stages — is far closer to what we advocate here than to anything Ford would recognise. The quant industry adopted a
+model that manufacturing itself had largely abandoned by the 1980s. Marcos Lopez de Prado has argued explicitly for
+the factory model in his work on the industrialisation of quantitative finance — and the model was put into practice
+at ADIA's Team Q, where I had the opportunity to observe its strengths and its costs firsthand.
+
+The deeper problem is not that the factory model is wrong in general, but that it does not fit knowledge work at all.
+In a factory, the interface between stations can be fully specified in advance: a part has a known shape and tolerance
+before it arrives at the next station. In research and engineering, the interface is exactly what is hardest to define,
+and it changes as understanding develops. Treating it like a fixed handoff creates the appearance of process while
+undermining the collaboration that actually gets things done.
 
 A more useful image is the professional kitchen. Not the frantic Saturday-night service of a Michelin-starred restaurant
 — that version of the kitchen, with its noise and urgency, is the wrong picture. Think instead of the kitchen as
@@ -239,8 +255,8 @@ distributed. That separation keeps the strategy code focused on what it is actua
 expressing intent — while the infrastructure layer handles the operational complexity of running it at scale.
 
 **Prime broker connectivity.** The strategy never communicates with the outside world directly. It expresses intent
-through its API — buy this instrument, in this quantity, with this urgency — and the platform's execution layer, part
-of the kitchen, handles everything else: translation into FIX or a proprietary protocol, order routing, fill
+through its API — buy this instrument, in this quantity, with this urgency — and the platform's execution layer,
+part of the kitchen, handles everything else: translation into FIX or a proprietary protocol, order routing, fill
 reconciliation, position and margin queries with the prime broker. This boundary is among the most consequential in
 the system. Errors here are not silent; they are immediate and financial. Keeping the strategy clear of that
 complexity is not just good architecture — it is what makes the system safe to operate.
