@@ -2,10 +2,6 @@ name: Build PDF
 
 on:
   push:
-    branches:
-      - LaTeX
-    paths:
-      - vision.tex
   workflow_dispatch:
 
 permissions:
@@ -31,21 +27,11 @@ jobs:
       - name: Compile vision.tex (first pass)
         run: xelatex -interaction=nonstopmode vision.tex
 
-      #- name: Compile vision.tex (second pass for cross-references)
-      #  run: xelatex -interaction=nonstopmode vision.tex
-
       - name: Create output directory
         run: mkdir -p _pdf
 
       - name: Compile vision.tex
         run: xelatex -interaction=nonstopmode _pdf/vision.tex
-
-      #- name: Strip PDF restrictions with Ghostscript
-      #  run: |
-      #    gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-      #      -dCompatibilityLevel=1.4 \
-      #      -sOutputFile=_pdf/vision.pdf \
-      #      vision.pdf
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
