@@ -27,11 +27,8 @@ jobs:
       - name: Compile vision.tex (first pass)
         run: xelatex -interaction=nonstopmode vision.tex
 
-      - name: Create output directory
-        run: mkdir -p _pdf
-
-      - name: Compile vision.tex
-        run: xelatex -interaction=nonstopmode _pdf/vision.tex
+      - name: Copy PDF to output directory
+        run: mkdir -p _pdf && cp vision.pdf _pdf/vision.pdf
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
