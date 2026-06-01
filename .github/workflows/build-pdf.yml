@@ -11,9 +11,6 @@ jobs:
   build-pdf:
     runs-on: ubuntu-latest
 
-    # Skip if the commit message contains [skip ci] to avoid loops
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,8 +36,12 @@ jobs:
             -V mainfont="TeX Gyre Termes" \
             -V linkcolor=blue
 
-      - name: Commit vision.pdf back to repository
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Deploy PDF to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          commit_message: "Rebuild vision.pdf [skip ci]"
-          file_pattern: vision.pdf
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: .
+          include_files: vision.pdf
+          keep_files: true
+          commit_message: "Update vision.pdf"

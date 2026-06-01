@@ -1,14 +1,36 @@
-# Platform
+# Platform — Jebel Quant Research
 
-This repository contains the platform for quantitative trading, established in 2026. It serves as the central infrastructure for developing, backtesting, and deploying systematic trading strategies across multiple asset classes and markets.
+This repository contains the platform for systematic quantitative trading developed by
+[Jebel Quant Research](https://github.com/Jebel-Quant). It provides the shared
+infrastructure — data access, portfolio construction, execution, risk management and
+repo tooling — that lets a trading team focus on signals and models rather than
+rebuilding common components from scratch.
 
-## Overview
+## Vision
 
-The platform provides the foundational components required to build and operate a modern quantitative trading operation, including data ingestion pipelines, signal generation frameworks, risk management tooling, and execution infrastructure.
+The thinking behind the platform is set out in full in the vision document:
 
-## Goals
+**[A Technology Vision for Quantitative Trading (PDF)](https://jebel-quant.github.io/platform/vision.pdf)**
 
-- Enable rapid development and iteration of quantitative trading strategies
-- Provide robust backtesting and simulation capabilities
-- Support live trading execution with integrated risk controls
-- Maintain high reliability and observability across all components
+The document covers the problems with the traditional research-to-production handover,
+the case for a shared environment, the kitchen analogy for team structure, and the
+role of containerisation, backtesting discipline, risk management and AI in a modern
+quant operation.
+
+## Key components
+
+- **Data API** — clean, versioned access to market data across asset classes
+- **Portfolio construction** — convex optimisation tools built with Stephen Boyd's group at Stanford
+- **Execution layer** — strategy-as-a-service with a standardised API; broker communication handled by the platform
+- **Risk management** — pre-trade checks, live monitoring, drawdown limits and kill switch
+- **[Rhiza](https://github.com/Jebel-Quant/rhiza)** — keeps all strategy repositories aligned with a common template
+
+## Related repositories
+
+| Repo | Purpose |
+|---|---|
+| [rhiza](https://github.com/Jebel-Quant/rhiza) | Scaffolding sync engine |
+| [rhiza-cli](https://github.com/Jebel-Quant/rhiza-cli) | CLI for Rhiza |
+| [linalg](https://github.com/Jebel-Quant/linalg) | Linear algebra utilities |
+| [basanos](https://github.com/Jebel-Quant/basanos) | Portfolio construction |
+| [jquantstats](https://github.com/Jebel-Quant/jquantstats) | Performance analytics |
