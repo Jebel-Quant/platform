@@ -11,6 +11,8 @@ on:
 jobs:
   build-pdf:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -29,7 +31,8 @@ jobs:
 
       - name: Compile vision.md to vision.pdf
         run: |
-          pandoc vision.md -o vision.pdf \
+          mkdir -p _pdf
+          pandoc vision.md -o _pdf/vision.pdf \
             --pdf-engine=xelatex \
             -V geometry:margin=2.5cm \
             -V fontsize=11pt \
@@ -42,7 +45,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
-          include_files: vision.pdf
+          publish_dir: ./_pdf
           keep_files: true
           commit_message: "Update vision.pdf"
