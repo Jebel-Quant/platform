@@ -99,8 +99,8 @@ interfaces, specialised stations and inspection at the end. A modern car factory
 production system — quality checks at every station, workers empowered to stop the line, continuous feedback between
 stages — is far closer to what we advocate here than to anything Ford would recognise. The quant industry adopted a
 model that manufacturing itself had largely abandoned by the 1980s. Marcos Lopez de Prado has argued explicitly for
-the factory model in his work on the industrialisation of quantitative finance — and the model was put into practice
-at ADIA's Team Q, where I had the opportunity to observe its strengths and its costs firsthand.
+the factory model in his work on the industrialisation of quantitative finance[^1] — and the model was put into
+practice at ADIA's Team Q, where I had the opportunity to observe its strengths and its costs firsthand.
 
 The deeper problem is not that the factory model is wrong in general, but that it does not fit knowledge work at all.
 In a factory, the interface between stations can be fully specified in advance: a part has a known shape and tolerance
@@ -144,48 +144,59 @@ skills, and most developers have enough quantitative depth to engage seriously w
 
 ## Building the Kitchen
 
-Building the platform means deciding what belongs in every kitchen regardless of what is being cooked. Several
-components are non-negotiable.
+Building the platform means deciding what belongs in every kitchen regardless of what is being cooked. The temptation
+is to start with the interesting parts — signal generation, portfolio construction, the models. Experience suggests
+this is the wrong order. Teams that skip the foundation and build strategies first end up with strategies that are hard
+to compare, hard to maintain and hard to trust. The foundation has to come first, even when it feels slow.
 
-**Data API.** Access to clean, reliable data is the foundation. Every strategy, every backtest, every risk calculation
-depends on it. A well-designed data API handles the complexity of sourcing, normalising and versioning data across
-providers and asset classes so researchers can ask for what they need without worrying about how to fetch it. Getting
-this layer right is what everything else is built on.
+**Data API.** The data layer is where most platforms quietly fail. Not because data is technically hard to fetch, but
+because the failure modes are invisible. Point-in-time correctness — ensuring that a query returns only what would
+have been known at a given historical moment — is easy to get approximately right and difficult to get exactly right.
+Survivorship bias, look-ahead from revised data, misaligned timestamps: each of these can make a strategy look better
+in backtesting than it ever was in reality. A well-designed data API makes the correct behaviour the default and the
+incorrect behaviour structurally difficult. Getting this layer right is what everything else is built on.
 
-**Common strategy tooling.** Many of the building blocks of quantitative strategies are not proprietary. Portfolio
-construction, signal combination, position sizing, transaction cost modelling are shared across the industry and across
-the team. They should be implemented once, tested thoroughly and available to everyone. A researcher building a new
-strategy should not be reimplementing a portfolio optimiser or a signal blending framework from scratch.
+**Common strategy tooling.** The building blocks of quantitative strategies — portfolio construction, signal
+combination, position sizing, transaction cost modelling — are not proprietary. Every team needs them; most teams
+build their own versions. The result is that the same components exist in dozens of slightly different forms across
+the same organisation, each with slightly different assumptions and edge case handling. When results diverge, nobody
+knows why. Implementing these components once, testing them thoroughly and making them available to everyone is not
+a convenience. It is what allows results to be compared and trusted.
 
-**Performance analytics.** Understanding why a strategy performed the way it did matters as much as the performance
-itself. A standard set of analytics, covering returns decomposition, drawdown analysis, factor attribution and cost
-accounting, means every strategy can be evaluated consistently. Results are comparable across strategies and over time
-rather than each researcher maintaining their own metrics.
+**Performance analytics.** A strategy's returns tell you what happened. Analytics tell you why. Without a standard
+set of tools covering returns decomposition, drawdown analysis, factor attribution and cost accounting, each
+researcher develops their own view of what a good strategy looks like. Those views are not comparable. A strategy
+that looks excellent on one researcher's metrics and mediocre on another's cannot be evaluated honestly. Shared
+analytics create a shared vocabulary. They also create shared accountability: a strategy that passes a common
+standard is harder to champion with private metrics that nobody else uses.
 
-**Live monitoring.** A strategy in production requires continuous observation: position and exposure tracking, P&L
-attribution, signal behaviour, execution quality and alerting when something moves outside expected bounds. Problems
-should be visible before they become costly.
+**Live monitoring.** Problems in production are not announced. A strategy that drifts — signals weakening, execution
+quality degrading, positions creeping outside intended bounds — will continue to run until something forces attention
+to it. By then the cost is real. Continuous observation of positions, P&L attribution, signal behaviour and execution
+quality is not optional infrastructure. It is the difference between catching a problem in an hour and catching it
+in a week.
 
 **Execution layer.** Strategies communicate intent through a standardised API; the execution layer translates that
 intent into orders, handles broker connectivity and manages the operational complexity of running strategies at scale.
 This is part of the kitchen — something the team should not have to rebuild for every strategy. It is discussed in
 detail in the Live Trading section.
 
-One principle applies across all of this. The kitchen must be built with researchers, not just for them. A platform
-designed only by engineers, however capable, risks solving the wrong problems. Researchers know what data they actually
-need, how they think about portfolio construction, what a useful performance report looks like and what slows their work
-down. That knowledge needs to be in the room when the platform is being built.
+The kitchen must be built with researchers, not just for them. A platform designed only by engineers, however capable,
+risks solving the wrong problems. Researchers know what data they actually need, how they think about portfolio
+construction, what a useful performance report looks like and what slows their work down. The gap between a data API
+that an engineer thinks researchers want and one that researchers actually use is often wide. That knowledge needs to
+be in the room when the platform is being built.
 
 In practice, the kitchen and the first strategies are often built in parallel. The team cannot wait for a complete
-platform before starting research, and waiting would be the wrong instinct anyway: building infrastructure in isolation,
-without real strategies pushing against it, tends to produce the wrong infrastructure. The feedback loop between
-strategy development and platform development is valuable and should not be broken.
+platform before starting research, and waiting would be the wrong instinct anyway: building infrastructure in
+isolation, without real strategies pushing against it, tends to produce the wrong infrastructure. The feedback loop
+between strategy development and platform development is valuable and should not be broken.
 
-That said, we do recommend establishing a minimal set of common tools before the first strategies are implemented. At
-minimum this means a working data API, a basic portfolio construction library and a consistent project structure
-enforced by Rhiza — a tool that keeps every strategy repository aligned with a common template. Without these
-in place, the first strategies will each invent their own solutions, and unpicking that fragmentation later is
-costly. A small shared foundation built early pays back many times over.
+That said, a minimal foundation should exist before the first strategies are implemented. At minimum this means a
+working data API, a basic portfolio construction library and a consistent project structure enforced by Rhiza — a
+tool that keeps every strategy repository aligned with a common template. Without these in place, the first
+strategies will each invent their own solutions, and unpicking that fragmentation later is costly. A small shared
+foundation built early pays back many times over.
 
 ## Keeping the Platform Consistent
 
@@ -363,8 +374,8 @@ and Janus Henderson. Relevant repos: [rhiza](https://github.com/Jebel-Quant/rhiz
 developed tooling for sourcing, normalising and serving data across asset classes, with a consistent interface that
 works identically in research and production.
 
-**Portfolio construction.** Drawing on work developed in collaboration with Stephen Boyd's group at Stanford and
-informed by co-authored research with Ron Kahn, Jebel Quant Research has built portfolio construction tools grounded in
+**Portfolio construction.** Drawing on work developed in collaboration with Stephen Boyd's group at Stanford, 
+Jebel Quant Research has built portfolio construction tools grounded in
 convex optimisation. These cover mean-variance optimisation, transaction cost aware rebalancing and risk-constrained
 allocation. Relevant repos: [linalg](https://github.com/Jebel-Quant/linalg),
 [basanos](https://github.com/Jebel-Quant/basanos).
@@ -378,11 +389,6 @@ vocabulary across the team rather than each researcher maintaining their own met
 broker connectivity layer described in this document are products of Jebel Quant Research. They are designed to be
 reusable across strategies and, where appropriate, across organisations.
 
----
+[^1]: Marcos Lopez de Prado, *Advances in Financial Machine Learning* (Wiley, 2018), Section 1.3. Working paper:
+<https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3104847>
 
-## Further Reading
-
-**Marcos Lopez de Prado** — *Advances in Financial Machine Learning* (Wiley, 2018). The assembly line model for
-quantitative research is discussed in Section 1.3. Lopez de Prado argues for a factory-style division of labour;
-this document argues for a different conclusion from a shared diagnosis. A working paper version is available at
-[papers.ssrn.com/sol3/papers.cfm?abstract_id=3104847](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3104847).
