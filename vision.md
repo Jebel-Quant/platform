@@ -348,3 +348,12 @@ vocabulary across the team rather than each researcher maintaining their own met
 **Live trading infrastructure.** The container-based deployment model, configuration management framework and prime
 broker connectivity layer described in this document are products of Jebel Quant Research. They are designed to be
 reusable across strategies and, where appropriate, across organisations.
+
+---
+
+## Further Reading
+
+**Marcos Lopez de Prado** — *Advances in Financial Machine Learning* (Wiley, 2018). The assembly line model for
+quantitative research is discussed in Section 1.3. Lopez de Prado argues for a factory-style division of labour;
+this document argues for a different conclusion from a shared diagnosis. A working paper version is available at
+[papers.ssrn.com/sol3/papers.cfm?abstract_id=3104847](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3104847).
