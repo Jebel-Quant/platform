@@ -91,13 +91,8 @@ crossing.
 
 ## A New Direction
 
-Our idea is built around a single environment for both research and production. The mechanism that makes this real is
-containerisation. A container packages not just code but the entire runtime environment — libraries, language version,
-dependencies — so the environment a researcher uses to develop a strategy is identical to the one that runs live.
-Moving between research, backtesting and production is a matter of changing configuration, not rewriting code. The
-familiar complaint — "it works on my machine" — loses its meaning when every machine runs the same machine.
-Researchers express ideas in high-level terms and the platform carries them through to execution without a translation
-step.
+Our idea is built around a single environment for both research and production. Researchers express ideas in high-level
+terms and the platform carries them through to execution without a translation step.
 
 The old handover model borrowed, implicitly, from an outdated idea of the factory: one group does its work and passes
 the output down the line. It is worth being precise about which factory. Henry Ford's assembly line was built on fixed
@@ -132,6 +127,12 @@ developers should not be building basic infrastructure from scratch: data pipeli
 engines, monitoring tooling. That is what the platform provides. The team's energy belongs on the signals, the models,
 the risk framework. Everything else is the oven, and it should just work.
 
+The mechanism that makes this real is containerisation. A container packages not just code but the entire runtime
+environment — libraries, language version, dependencies — so the environment a researcher uses to develop a strategy
+is identical to the one that runs live. Moving between research, backtesting and production is a matter of changing
+configuration, not rewriting code. The familiar complaint — "it works on my machine" — loses its meaning when every
+machine runs the same machine.
+
 We organise the team in what we call a checkerboard structure rather than separating researchers and developers upstream
 and downstream. They sit together, alternate and collaborate continuously. A researcher working on a new signal works
 alongside the engineer responsible for the infrastructure that will run it. Knowledge moves in both directions. The
@@ -165,6 +166,11 @@ rather than each researcher maintaining their own metrics.
 **Live monitoring.** A strategy in production requires continuous observation: position and exposure tracking, P&L
 attribution, signal behaviour, execution quality and alerting when something moves outside expected bounds. Problems
 should be visible before they become costly.
+
+**Execution layer.** Strategies communicate intent through a standardised API; the execution layer translates that
+intent into orders, handles broker connectivity and manages the operational complexity of running strategies at scale.
+This is part of the kitchen — something the team should not have to rebuild for every strategy. It is discussed in
+detail in the Live Trading section.
 
 One principle applies across all of this. The kitchen must be built with researchers, not just for them. A platform
 designed only by engineers, however capable, risks solving the wrong problems. Researchers know what data they actually
@@ -294,21 +300,20 @@ as an afterthought. It is something the team tests regularly, the same way a kit
 
 ## Conclusion
 
-For most of its history, quantitative trading has been organised around a handover. Researchers developed strategies in
-MATLAB or Python; engineers reimplemented everything in C++. Knowledge fragmented across personal scripts. New hires
-rebuilt the same basic tools from scratch. When modern machine learning arrived, the C++ mandate became impossible to
-sustain. No team can reimplement PyTorch.
+The problems described in this document are not technical failures. They are organisational ones. The handover model,
+the personal scripts, the reinvented wheels — none of these happened because teams lacked talent or ambition. They
+happened because the structures in place made sharing hard, translation inevitable and accountability diffuse. Better
+tooling alone does not fix that. The platform has to be accompanied by a different way of working.
 
-This platform is built on a different premise. Research and production share the same environment. The container a
-researcher uses to develop a strategy is the same one that runs live. Moving between environments is a matter of
-changing configuration files, not rewriting code. A clean interface to the prime broker means the strategy works the
-same way whether it is talking to a simulator or a live venue.
+What this document argues for is not a specific technology stack but a set of principles: shared environment over
+translation, quality at every stage over inspection at the end, common infrastructure over individual reinvention,
+accountability through shared ownership over alibi through separation. The specific tools — containers, Rhiza, a
+standardised execution API — are expressions of those principles, not the principles themselves. A team that
+internalises the principles will make good decisions about the tools. A team that adopts the tools without the
+principles will find ways to recreate the old problems inside the new infrastructure.
 
-The team is not divided into researchers and developers. Common tools for data access, portfolio construction,
-performance analytics and live monitoring are built once and shared. Jebel Quant's
-[Rhiza](https://github.com/Jebel-Quant/rhiza-education) keeps project scaffolding consistent across all strategy
-repositories so infrastructure drift never becomes a distraction. The platform exists so the team can focus on the
-one thing that cannot be bought off the shelf: the edge.
+The edge in quantitative trading is scarce and hard to find. The platform exists to make sure that the search for it
+is not cluttered by problems that have already been solved.
 
 ---
 
