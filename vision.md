@@ -1,6 +1,10 @@
 # A Technology Vision for Quantitative Trading
 
-*Thomas Schmelzer — May 2026*
+*Thomas Schmelzer, Jebel Quant Research — May 2026*
+
+*Jebel Quant Research builds the tools and infrastructure for systematic trading teams — from data access and
+portfolio construction to live execution and repo management. This document sets out the thinking behind that work.*
+
 
 *These are my personal views on how a quantitative trading platform should be built. I have spent two decades working
 across systematic hedge funds, high-frequency trading, family offices and sovereign wealth funds. The practices I
@@ -158,8 +162,10 @@ strategy development and platform development is valuable and should not be brok
 
 That said, we do recommend establishing a minimal set of common tools before the first strategies are implemented. At
 minimum this means a working data API, a basic portfolio construction library and a consistent project structure
-enforced by Rhiza. Without these in place, the first strategies will each invent their own solutions, and unpicking that
-fragmentation later is costly. A small shared foundation built early pays back many times over.
+enforced by Rhiza — a tool that keeps every strategy repository aligned with a common template. Without these in
+place,
+the first strategies will each invent their own solutions, and unpicking that fragmentation later is costly. A small
+shared foundation built early pays back many times over.
 
 ## Keeping the Platform Consistent
 
@@ -168,10 +174,10 @@ unmanaged a collection of strategy repos quickly becomes a zoo. CI workflows div
 configs split. A security fix lands in one repo and is missed by the rest. The same fragmentation that plagued the old
 world of personal scripts reappears at the infrastructure level.
 
-[Rhiza](https://github.com/Jebel-Quant/rhiza-education) addresses this directly. Rather than generating project
-scaffolding once and walking away, Rhiza keeps every strategy repository aligned with the platform's canonical
-standards. When the central template changes, a new CI workflow, an updated linting config, a change to the
-containerisation setup, Rhiza opens a pull request in each downstream repo with a clear diff of what changed. Owners
+[Rhiza](https://github.com/Jebel-Quant/rhiza-education) was built to address this directly. Rather than generating
+project scaffolding once and walking away, it keeps every strategy repository continuously aligned with the platform's
+canonical standards. When the central template changes — a new CI workflow, an updated linting config, a change to the
+containerisation setup — Rhiza opens a pull request in each downstream repo with a clear diff of what changed. Owners
 review, adapt where needed and merge. Nothing is forced and nothing is missed.
 
 This is the infrastructure equivalent of shared strategy tooling. Researchers should not reimplement portfolio
@@ -226,18 +232,23 @@ configuration file is versioned. Every deployment is a known container image com
 If something goes wrong in production, the team can reconstruct exactly what was running and with what parameters.
 Rolling back is a configuration change, not an emergency deployment.
 
-**Prime broker connectivity.** A live strategy communicates with the outside world: placing orders, receiving fills,
-querying positions, reconciling cash and margin with a prime broker. This boundary is among the most consequential in
-the system. Errors here are not silent; they are immediate and financial.
+Each strategy is implemented as a service with a standardised API. This is a deliberate architectural choice: once the
+strategy exposes a clean interface, execution logic and scaling concerns can be handled by a separate layer entirely.
+The strategy itself does not need to know how many instances are running, how orders are routed, or how load is
+distributed. That separation keeps the strategy code focused on what it is actually good at — generating signals and
+expressing intent — while the infrastructure layer handles the operational complexity of running it at scale.
 
-The platform puts a clean interface in front of prime broker communication. The strategy expresses intent, buy this
-instrument in this quantity with this urgency, and the execution layer handles the translation into whatever protocol
-the broker expects, whether FIX or a proprietary API. The strategy does not need to know which broker it is talking to.
-Switching brokers or adding a new venue is a configuration change.
+**Prime broker connectivity.** The strategy never communicates with the outside world directly. It expresses intent
+through its API — buy this instrument, in this quantity, with this urgency — and the platform's execution layer, part
+of the kitchen, handles everything else: translation into FIX or a proprietary protocol, order routing, fill
+reconciliation, position and margin queries with the prime broker. This boundary is among the most consequential in
+the system. Errors here are not silent; they are immediate and financial. Keeping the strategy clear of that
+complexity is not just good architecture — it is what makes the system safe to operate.
 
-In backtesting and paper trading the same execution interface is present, backed by a simulated fill engine rather than
-a live connection. The strategy code is identical across all environments. The broker, like everything else, is a
-configuration detail.
+Switching brokers or adding a new venue is a configuration change to the execution layer. The strategy is unaffected.
+In backtesting and paper trading the same interface is present, backed by a simulated fill engine rather than a live
+connection. The strategy code is identical across all environments. The broker, like everything else, is a detail the
+kitchen absorbs so the strategy does not have to.
 
 ## Risk Management
 
@@ -263,39 +274,37 @@ The kill switch is a first-class platform concept. Every live strategy can be st
 can be unwound in an orderly way, and the system returns to a known state. This is not an emergency procedure bolted on
 as an afterthought. It is something the team tests regularly, the same way a kitchen tests its fire procedures.
 
-## The Impact of AI
+---
 
-AI has changed what is possible at every stage of this work, and we use it throughout.
+## Conclusion
 
-When building the platform itself, AI assistants accelerate the construction of the kitchen. Boilerplate that once took
-days to write and review can be generated, tested and iterated in hours. Documentation, test coverage, code review:
-tasks that historically competed with research time are now far less costly. The kitchen gets built faster, and with
-more of the team's attention available for the harder problems.
+For most of its history, quantitative trading has been organised around a handover. Researchers developed strategies in
+MATLAB or Python; engineers reimplemented everything in C++. Knowledge fragmented across personal scripts. New hires
+rebuilt the same basic tools from scratch. When modern machine learning arrived, the C++ mandate became impossible to
+sustain. No team can reimplement PyTorch.
 
-In research, AI assists with signal generation, literature review, code prototyping and the kind of exploratory data
-analysis that used to require a full day of scripting. A researcher can move from a rough idea to a working prototype
-more quickly than before, which means more ideas get tested and more of them reach the stage where they can be seriously
-evaluated.
+This platform is built on a different premise. Research and production share the same environment. The container a
+researcher uses to develop a strategy is the same one that runs live. Moving between environments is a matter of
+changing configuration files, not rewriting code. A clean interface to the prime broker means the strategy works the
+same way whether it is talking to a simulator or a live venue.
 
-In production, AI supports monitoring and anomaly detection. A live strategy generates a continuous stream of data:
-fills, positions, P&L, signal values, execution quality. Identifying when something has drifted outside normal behaviour
-is exactly the kind of pattern recognition that AI handles well. Problems that might previously have gone unnoticed for
-hours can surface in minutes.
+The team is not divided into researchers and developers. Common tools for data access, portfolio construction,
+performance analytics and live monitoring are built once and shared. Jebel Quant's
+[Rhiza](https://github.com/Jebel-Quant/rhiza-education) keeps project scaffolding consistent across all strategy
+repositories so infrastructure drift never becomes a distraction. The platform exists so the team can focus on the
+one thing that cannot be bought off the shelf: the edge.
 
-None of this replaces judgement. AI does not know which signals are real and which are spurious. It does not understand
-the difference between a model that is broken and a market that has changed. The researchers and developers on the team
-carry that responsibility. What AI does is remove the friction that previously consumed so much of their time, leaving
-more of it for the work that actually requires a human.
+---
 
-## Jebel Quant Research
+## Appendix: Jebel Quant Research
 
 Jebel Quant Research develops the tools and infrastructure that the platform described here is built on. The work spans
 several areas.
 
 **Project infrastructure.** Rhiza is the first publicly available tool from Jebel Quant Research. It solves the repo zoo
 problem for Python-heavy organisations by keeping project scaffolding continuously aligned across many repositories
-through a pull request based sync mechanism. It is already in use beyond Jebel Quant, including at Stanford's CVXGRP and
-Janus Henderson. Relevant repos: [rhiza](https://github.com/Jebel-Quant/rhiza),
+through a pull request based sync mechanism. It is already in use beyond Jebel Quant, including at Stanford's CVXGRP
+and Janus Henderson. Relevant repos: [rhiza](https://github.com/Jebel-Quant/rhiza),
 [rhiza-cli](https://github.com/Jebel-Quant/rhiza-cli), [rhiza-tools](https://github.com/Jebel-Quant/rhiza-tools),
 [rhiza-hooks](https://github.com/Jebel-Quant/rhiza-hooks),
 [rhiza-education](https://github.com/Jebel-Quant/rhiza-education).
@@ -318,23 +327,3 @@ vocabulary across the team rather than each researcher maintaining their own met
 **Live trading infrastructure.** The container-based deployment model, configuration management framework and prime
 broker connectivity layer described in this document are products of Jebel Quant Research. They are designed to be
 reusable across strategies and, where appropriate, across organisations.
-
----
-
-## Conclusion
-
-For most of its history, quantitative trading has been organised around a handover. Researchers developed strategies in
-MATLAB or Python; engineers reimplemented everything in C++. Knowledge fragmented across personal scripts. New hires
-rebuilt the same basic tools from scratch. When modern machine learning arrived, the C++ mandate became impossible to
-sustain. No team can reimplement PyTorch.
-
-This platform is built on a different premise. Research and production share the same environment. The container a
-researcher uses to develop a strategy is the same one that runs live. Moving between environments is a matter of
-changing configuration files, not rewriting code. A clean interface to the prime broker means the strategy works the
-same way whether it is talking to a simulator or a live venue.
-
-The team is not divided into researchers and developers. Common tools for data access, portfolio construction,
-performance analytics and live monitoring are built once and shared. Jebel Quant's
-[Rhiza](https://github.com/Jebel-Quant/rhiza-education) keeps project scaffolding consistent across all strategy
-repositories so infrastructure drift never becomes a distraction. The platform exists so the team can focus on the
-one thing that cannot be bought off the shelf: the edge.
