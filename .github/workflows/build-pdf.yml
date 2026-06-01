@@ -1,58 +1,55 @@
-name: Build vision.pdf
+name: Build PDF
 
 on:
   push:
     branches:
-      - main
+      - LaTeX
     paths:
-      - vision.md
+      - vision.tex
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build-pdf:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install pandoc and LaTeX dependencies
+      - name: Install TeX Live and dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            pandoc \
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-fonts-extra \
             texlive-latex-extra \
-            fonts-texgyre
+            fonts-texgyre \
+            ghostscript
 
-      - name: Install ghostscript
-        run: sudo apt-get install -y ghostscript
+      - name: Compile vision.tex (first pass)
+        run: xelatex -interaction=nonstopmode vision.tex
 
-      - name: Compile vision.md to vision.pdf
+      - name: Compile vision.tex (second pass for cross-references)
+        run: xelatex -interaction=nonstopmode vision.tex
+
+      - name: Create output directory
+        run: mkdir -p _pdf
+
+      - name: Strip PDF restrictions with Ghostscript
         run: |
-          mkdir -p _pdf
-          pandoc vision.md -o _pdf/vision.pdf \
-            --pdf-engine=xelatex \
-            -V geometry:margin=2.5cm \
-            -V fontsize=11pt \
-            -V linestretch=1.4 \
-            -V mainfont="TeX Gyre Termes" \
-            -V linkcolor=blue
           gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
             -dCompatibilityLevel=1.4 \
-            -sOutputFile=_pdf/vision_clean.pdf \
-            _pdf/vision.pdf \
-            && mv _pdf/vision_clean.pdf _pdf/vision.pdf
+            -sOutputFile=_pdf/vision.pdf \
+            vision.pdf
 
-      - name: Deploy PDF to GitHub Pages
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./_pdf
+          publish_dir: _pdf
           keep_files: true
           commit_message: "Update vision.pdf"
