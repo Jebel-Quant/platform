@@ -7,37 +7,69 @@ on:
     paths:
       - docs/**
       - zensical.toml
+      - vision.tex
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-latex-extra
+
+      - name: Build PDF
+        run: |
+          set -euo pipefail
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          test -f vision.pdf
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
-      - name: Install Zensical
-        run: pip install zensical
+      - name: Install Zensical and build site
+        run: pip install zensical && zensical build
 
-      - name: Build site
-        run: zensical build
+      - name: Copy PDF into site
+        run: cp vision.pdf site/vision.pdf
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: site
-          keep_files: true
-          commit_message: "Deploy docs site"
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
