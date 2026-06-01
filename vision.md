@@ -296,27 +296,34 @@ as an afterthought. It is something the team tests regularly, the same way a kit
 
 ## The Impact of AI
 
-AI has changed what is possible at every stage of this work, and we use it throughout.
+The arrival of capable AI tools has changed one thing more than any other: the cost of turning an idea into a running
+experiment. That cost was always the hidden tax on quantitative research. A researcher with a sharp intuition about
+market structure would spend days implementing the infrastructure to test it — data wrangling, signal construction,
+backtest scaffolding, performance reporting — before learning whether the intuition was worth anything. Most of the
+time it was not, but the cost of finding out was high enough that fewer ideas got tested than should have.
 
-When building the platform itself, AI assistants accelerate the construction of the kitchen. Boilerplate that once took
-days to write and review can be generated, tested and iterated in hours. Documentation, test coverage, code review:
-tasks that historically competed with research time are now far less costly. The kitchen gets built faster, and with
-more of the team's attention available for the harder problems.
+AI compresses that cycle. The effect is not that researchers work less; it is that the ratio of thinking to
+implementation shifts, and ideas that were previously not worth the cost of testing become worth testing. A platform
+built on shared tools amplifies this further: AI works best when the environment is clean and the interfaces are
+consistent. Fragmented infrastructure and AI are a poor combination — the model has no reliable context to work from.
+The kitchen makes AI more useful, not less relevant.
 
-In research, AI assists with signal generation, literature review, code prototyping and the kind of exploratory data
-analysis that used to require a full day of scripting. A researcher can move from a rough idea to a working prototype
-more quickly than before, which means more ideas get tested and more of them reach the stage where they can be
-seriously evaluated.
+This creates a risk the document would be incomplete not to name. Faster iteration means more experiments, which means
+more opportunities for overfitting. The discipline problems described in the Backtesting section — look-ahead bias,
+data snooping, the temptation to tweak until the out-of-sample period looks good — do not disappear when iteration is
+cheap. They get worse. A researcher who can run fifty backtests in the time it previously took to run five will, without
+discipline, find five times as many spurious results. The platform provides the infrastructure for honest evaluation;
+the team culture provides the discipline to use it honestly. AI raises the stakes for both.
 
-In production, AI supports monitoring and anomaly detection. A live strategy generates a continuous stream of data:
-fills, positions, P&L, signal values, execution quality. Identifying when something has drifted outside normal
-behaviour is exactly the kind of pattern recognition that AI handles well. Problems that might previously have gone
-unnoticed for hours can surface in minutes.
+In production, AI is most valuable where humans are least reliable: sustained attention to continuous streams of data.
+A live strategy generates thousands of data points a day. Monitoring for anomalies — fills that do not match
+expectations, signals that drift, execution quality that degrades — requires exactly the kind of pattern recognition
+that AI handles well and humans find tedious. Problems surface faster. The kill switch gets pulled sooner.
 
-None of this replaces judgement. AI does not know which signals are real and which are spurious. It does not understand
-the difference between a model that is broken and a market that has changed. The researchers and developers on the team
-carry that responsibility. What AI does is remove the friction that previously consumed so much of their time, leaving
-more of it for the work that actually requires a human.
+What AI does not do is generate insight. It can prototype a signal but cannot determine whether the signal is real or
+spurious. It can flag an anomaly but cannot decide whether the market has changed or the model is broken. It can write
+the code but cannot judge whether the strategy belongs in production. Those judgements belong to the team. AI removes
+friction. The work it exposes is still the work.
 
 ---
 
