@@ -5,7 +5,6 @@
 *Jebel Quant Research builds the tools and infrastructure for systematic trading teams — from data access and
 portfolio construction to live execution and repo management. This document sets out the thinking behind that work.*
 
-
 *These are my personal views on how a quantitative trading platform should be built. I have spent two decades working
 across systematic hedge funds, high-frequency trading, family offices and sovereign wealth funds. The practices I
 describe in the early sections were perfectly reasonable at the time. Technology has moved on, and I think the way we
