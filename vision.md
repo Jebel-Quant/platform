@@ -384,7 +384,8 @@ is not cluttered by problems that have already been solved.
 **Mohammed Abu Sharikh** — developer and friend since our days together at Winton Capital. Many of the ideas in this
 document were first tested in conversation with him.
 
-**Alexander Belopolsky** — our often heated debates made me a much stronger engineer than I would otherwise have been.
+**In memory of Alexander Belopolsky** — our often heated debates made me a much stronger engineer than I would
+otherwise have been.
 
 ---
 
