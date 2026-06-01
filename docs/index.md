@@ -16,4 +16,4 @@ for a shared environment, the kitchen analogy for team structure, and the role o
 containerisation, backtesting discipline, risk management and AI in a modern quant
 operation.
 
-[Download PDF](https://raw.githubusercontent.com/Jebel-Quant/platform/gh-pages/vision.pdf){ .md-button .md-button--primary }
+[Download PDF](https://jebel-quant.github.io/platform/vision.pdf){ .md-button .md-button--primary }
