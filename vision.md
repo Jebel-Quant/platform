@@ -294,6 +294,30 @@ The kill switch is a first-class platform concept. Every live strategy can be st
 can be unwound in an orderly way, and the system returns to a known state. This is not an emergency procedure bolted on
 as an afterthought. It is something the team tests regularly, the same way a kitchen tests its fire procedures.
 
+## The Impact of AI
+
+AI has changed what is possible at every stage of this work, and we use it throughout.
+
+When building the platform itself, AI assistants accelerate the construction of the kitchen. Boilerplate that once took
+days to write and review can be generated, tested and iterated in hours. Documentation, test coverage, code review:
+tasks that historically competed with research time are now far less costly. The kitchen gets built faster, and with
+more of the team's attention available for the harder problems.
+
+In research, AI assists with signal generation, literature review, code prototyping and the kind of exploratory data
+analysis that used to require a full day of scripting. A researcher can move from a rough idea to a working prototype
+more quickly than before, which means more ideas get tested and more of them reach the stage where they can be
+seriously evaluated.
+
+In production, AI supports monitoring and anomaly detection. A live strategy generates a continuous stream of data:
+fills, positions, P&L, signal values, execution quality. Identifying when something has drifted outside normal
+behaviour is exactly the kind of pattern recognition that AI handles well. Problems that might previously have gone
+unnoticed for hours can surface in minutes.
+
+None of this replaces judgement. AI does not know which signals are real and which are spurious. It does not understand
+the difference between a model that is broken and a market that has changed. The researchers and developers on the team
+carry that responsibility. What AI does is remove the friction that previously consumed so much of their time, leaving
+more of it for the work that actually requires a human.
+
 ---
 
 ## Conclusion
