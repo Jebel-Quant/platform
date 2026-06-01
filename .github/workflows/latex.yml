@@ -1,0 +1,15 @@
+name: Build LaTeX PDF
+
+on:
+  push:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build-latex:
+    uses: ./.github/workflows/latex-build.yml
+    with:
+      working-directory: 'paper'
+      tex-file: 'vision.tex'
