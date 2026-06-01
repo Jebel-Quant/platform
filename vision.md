@@ -178,16 +178,16 @@ in a week.
 
 **Execution layer.** Strategies communicate intent through a standardised API; the execution layer translates that
 intent into orders, handles broker connectivity and manages the operational complexity of running strategies at scale.
-This is part of the kitchen — something the team should not have to rebuild for every strategy. It is discussed in
+This is a platform component — something the team should not have to rebuild for every strategy. It is discussed in
 detail in the Live Trading section.
 
-The kitchen must be built with researchers, not just for them. A platform designed only by engineers, however capable,
+The platform must be built with researchers, not just for them. A platform designed only by engineers, however capable,
 risks solving the wrong problems. Researchers know what data they actually need, how they think about portfolio
 construction, what a useful performance report looks like and what slows their work down. The gap between a data API
 that an engineer thinks researchers want and one that researchers actually use is often wide. That knowledge needs to
 be in the room when the platform is being built.
 
-In practice, the kitchen and the first strategies are often built in parallel. The team cannot wait for a complete
+In practice, the platform and the first strategies are often built in parallel. The team cannot wait for a complete
 platform before starting research, and waiting would be the wrong instinct anyway: building infrastructure in
 isolation, without real strategies pushing against it, tends to produce the wrong infrastructure. The feedback loop
 between strategy development and platform development is valuable and should not be broken.
@@ -279,15 +279,15 @@ safer by knowing more about the world it operates in. It becomes safer by knowin
 
 **Prime broker connectivity.** The strategy never communicates with the outside world directly. It expresses intent
 through its API — buy this instrument, in this quantity, with this urgency — and the platform's execution layer,
-part of the kitchen, handles everything else: translation into FIX or a proprietary protocol, order routing, fill
-reconciliation, position and margin queries with the prime broker. This boundary is among the most consequential in
+part of the execution layer, handles everything else: translation into FIX or a proprietary protocol, order routing,
+fill reconciliation, position and margin queries with the prime broker. This boundary is among the most consequential in
 the system. Errors here are not silent; they are immediate and financial. Keeping the strategy clear of that
 complexity is not just good architecture — it is what makes the system safe to operate.
 
 Switching brokers or adding a new venue is a configuration change to the execution layer. The strategy is unaffected.
 In backtesting and paper trading the same interface is present, backed by a simulated fill engine rather than a live
 connection. The strategy code is identical across all environments. The broker, like everything else, is a detail the
-kitchen absorbs so the strategy does not have to.
+platform absorbs so the strategy does not have to.
 
 ## Risk Management
 
@@ -331,7 +331,7 @@ AI compresses that cycle. The effect is not that researchers work less; it is th
 implementation shifts, and ideas that were previously not worth the cost of testing become worth testing. A platform
 built on shared tools amplifies this further: AI works best when the environment is clean and the interfaces are
 consistent. Fragmented infrastructure and AI are a poor combination — the model has no reliable context to work from.
-The kitchen makes AI more useful, not less relevant.
+A clean, consistent platform makes AI more useful, not less relevant.
 
 This creates a risk the document would be incomplete not to name. Faster iteration means more experiments, which means
 more opportunities for overfitting. The discipline problems described in the Backtesting section — look-ahead bias,
@@ -366,8 +366,25 @@ standardised execution API — are expressions of those principles, not the prin
 internalises the principles will make good decisions about the tools. A team that adopts the tools without the
 principles will find ways to recreate the old problems inside the new infrastructure.
 
+It is worth being honest about what this way of working asks of people. A researcher who has built their own tools,
+their own scripts, their own way of doing things is being asked to give that up — or at least to hold it more loosely.
+An engineer who owns a pipeline is being asked to share that ownership with the team. This is not a small ask. The
+autonomy that comes with personal ownership is genuinely valuable; it is fast and unencumbered and answers to nobody.
+What it trades away is comparability, continuity and the ability to build on what came before. The platform makes
+that trade explicitly. Whether it is the right trade depends on what the team is trying to do. For a team serious
+about compounding knowledge and operating at scale, we think it is.
+
 The edge in quantitative trading is scarce and hard to find. The platform exists to make sure that the search for it
 is not cluttered by problems that have already been solved.
+
+---
+
+## Acknowledgements
+
+**Mohammed Abu Sharikh** — developer and friend since our days together at Winton Capital. Many of the ideas in this
+document were first tested in conversation with him.
+
+**Alexander Belopolsky** — our often heated debates made me a much stronger engineer than I would otherwise have been.
 
 ---
 
