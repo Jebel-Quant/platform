@@ -28,14 +28,16 @@ jobs:
             texlive-fonts-extra \
             texlive-latex-extra
 
-      - name: Compile vision.tex (first pass)
-        run: xelatex -interaction=nonstopmode vision.tex
+      - name: Compile vision.tex
+        run: |
+          set -euo pipefail
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          test -f vision.pdf
+          file vision.pdf
+          mkdir -p _pdf
+          cp vision.pdf _pdf/vision.pdf
 
-      - name: Compile vision.tex (second pass)
-        run: xelatex -interaction=nonstopmode vision.tex
-
-      - name: Copy PDF to output directory
-        run: mkdir -p _pdf && cp vision.pdf _pdf/vision.pdf
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
