@@ -29,6 +29,9 @@ jobs:
             texlive-latex-extra \
             fonts-texgyre
 
+      - name: Install ghostscript
+        run: sudo apt-get install -y ghostscript
+
       - name: Compile vision.md to vision.pdf
         run: |
           mkdir -p _pdf
@@ -39,6 +42,11 @@ jobs:
             -V linestretch=1.4 \
             -V mainfont="TeX Gyre Termes" \
             -V linkcolor=blue
+          gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+            -dCompatibilityLevel=1.4 \
+            -sOutputFile=_pdf/vision_clean.pdf \
+            _pdf/vision.pdf \
+            && mv _pdf/vision_clean.pdf _pdf/vision.pdf
 
       - name: Deploy PDF to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
