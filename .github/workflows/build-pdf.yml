@@ -26,25 +26,26 @@ jobs:
             texlive-xetex \
             texlive-fonts-recommended \
             texlive-fonts-extra \
-            texlive-latex-extra \
-            fonts-texgyre \
-            ghostscript
+            texlive-latex-extra
 
       - name: Compile vision.tex (first pass)
         run: xelatex -interaction=nonstopmode vision.tex
 
-      - name: Compile vision.tex (second pass for cross-references)
-        run: xelatex -interaction=nonstopmode vision.tex
+      #- name: Compile vision.tex (second pass for cross-references)
+      #  run: xelatex -interaction=nonstopmode vision.tex
 
       - name: Create output directory
         run: mkdir -p _pdf
 
-      - name: Strip PDF restrictions with Ghostscript
-        run: |
-          gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
-            -dCompatibilityLevel=1.4 \
-            -sOutputFile=_pdf/vision.pdf \
-            vision.pdf
+      - name: Compile vision.tex
+        run: xelatex -interaction=nonstopmode _pdf/vision.tex
+
+      #- name: Strip PDF restrictions with Ghostscript
+      #  run: |
+      #    gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
+      #      -dCompatibilityLevel=1.4 \
+      #      -sOutputFile=_pdf/vision.pdf \
+      #      vision.pdf
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
