@@ -184,15 +184,14 @@ strategy development and platform development is valuable and should not be brok
 
 That said, we do recommend establishing a minimal set of common tools before the first strategies are implemented. At
 minimum this means a working data API, a basic portfolio construction library and a consistent project structure
-enforced by Rhiza — a tool that keeps every strategy repository aligned with a common template. Without these in
-place,
-the first strategies will each invent their own solutions, and unpicking that fragmentation later is costly. A small
-shared foundation built early pays back many times over.
+enforced by Rhiza — a tool that keeps every strategy repository aligned with a common template. Without these
+in place, the first strategies will each invent their own solutions, and unpicking that fragmentation later is
+costly. A small shared foundation built early pays back many times over.
 
 ## Keeping the Platform Consistent
 
-With the kitchen in place, strategies can be built in earnest. Each strategy lives in its own repository, but left
-unmanaged a collection of strategy repos quickly becomes a zoo. CI workflows diverge. Python versions drift. Linting
+As strategies multiply, each living in its own repository, a new fragmentation risk emerges. Left unmanaged, a
+collection of strategy repos quickly becomes a zoo. CI workflows diverge. Python versions drift. Linting
 configs split. A security fix lands in one repo and is missed by the rest. The same fragmentation that plagued the old
 world of personal scripts reappears at the infrastructure level.
 
