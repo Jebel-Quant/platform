@@ -2,6 +2,10 @@ name: Build PDF
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - vision.tex
   workflow_dispatch:
 
 permissions:
@@ -25,6 +29,9 @@ jobs:
             texlive-latex-extra
 
       - name: Compile vision.tex (first pass)
+        run: xelatex -interaction=nonstopmode vision.tex
+
+      - name: Compile vision.tex (second pass)
         run: xelatex -interaction=nonstopmode vision.tex
 
       - name: Copy PDF to output directory
