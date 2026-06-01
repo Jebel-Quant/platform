@@ -1,6 +1,6 @@
 # A Technology Vision for Quantitative Trading
 
-*Thomas Schmelzer, Jebel Quant Research — May 2026*
+*Thomas Schmelzer, Jebel Quant Research — May 2026 — thomas@jqr.ae*
 
 *Jebel Quant Research builds the tools and infrastructure for systematic trading teams — from data access and
 portfolio construction to live execution and repo management. This document sets out the thinking behind that work.*
