@@ -58,7 +58,7 @@ Trading}\label{a-technology-vision-for-quantitative-trading}
 thomas@jqr.ae}
 
 \emph{Jebel Quant Research builds the tools and infrastructure for
-systematic trading teams --- from data access and portfolio construction
+systematic trading teams, from data access and portfolio construction
 to live execution and repo management. This document sets out the
 thinking behind that work.}
 
@@ -70,8 +70,8 @@ and spent a summer assisting in their quality labs. The practices I
 describe in the early sections were perfectly reasonable at the time.
 Technology has moved on, and I think the way we build and run these
 platforms should move on too. When I reach for analogies about how
-precision work gets done --- kitchens, assembly lines, shared standards
---- I am drawing on direct experience, not metaphor.}
+precision work gets done (kitchens, assembly lines, shared standards)
+I am drawing on direct experience, not metaphor.}
 
 \subsection{The Old Approach}\label{the-old-approach}
 
@@ -141,8 +141,8 @@ themselves unable to use these tools, and fell behind those that did.
 History has not been kind to the handover model. Across the industry,
 the pattern repeated itself: the central tools were never built. Teams
 focused on strategies and left the shared infrastructure as an
-afterthought. Essential tools --- data access, portfolio construction,
-performance analytics, backtesting frameworks --- were created
+afterthought. Essential tools (data access, portfolio construction,
+performance analytics, backtesting frameworks) were created
 independently by every team that needed them, in slightly different
 ways, with slightly different assumptions. The same wheel was reinvented
 dozens of times across the same organisation, and nobody had a complete
@@ -165,15 +165,15 @@ have built something together, they own it together.
 
 The handover model can be made to work better. Shared interface
 definitions between research and engineering reduce ambiguity at the
-boundary. Strict versioning of the research artefact --- the exact
-notebook, the exact data snapshot, the exact parameters --- gives the
+boundary. Strict versioning of the research artefact (the exact
+notebook, the exact data snapshot, the exact parameters) gives the
 engineering team something precise to reimplement rather than a moving
 target. Automated regression tests that compare research and production
 outputs on the same inputs catch divergence early, before it reaches
 live capital. These are real improvements and worth making. But they are
 patches. They reduce the cost of the translation step; they do not
 eliminate it. The fundamental problem is that translation step itself
---- the moment where one representation of an idea becomes another, and
+the moment where one representation of an idea becomes another, and
 where something is always lost or changed in the crossing.
 
 \subsection{A New Direction}\label{a-new-direction}
@@ -187,8 +187,8 @@ the factory: one group does its work and passes the output down the
 line. It is worth being precise about which factory. Henry Ford's
 assembly line was built on fixed interfaces, specialised stations and
 inspection at the end. A modern car factory looks nothing like this.
-Toyota's production system --- quality checks at every station, workers
-empowered to stop the line, continuous feedback between stages --- is
+Toyota's production system (quality checks at every station, workers
+empowered to stop the line, continuous feedback between stages) is
 far closer to what we advocate here than to anything Ford would
 recognise. The quant industry adopted a model that manufacturing itself
 had largely abandoned by the 1980s. Marcos Lopez de Prado has argued
@@ -209,7 +209,7 @@ fixed handoff creates the appearance of process while undermining the
 collaboration that actually gets things done.
 
 A more useful image is the professional kitchen. Not the frantic
-Saturday-night service of a Michelin-starred restaurant --- that version
+Saturday-night service of a Michelin-starred restaurant; that version
 of the kitchen, with its noise and urgency, is the wrong picture. Think
 instead of the kitchen as atelier: calm, deliberate, precise. A place
 where skilled people work together with shared tools, each aware of what
@@ -236,12 +236,12 @@ on the signals, the models, the risk framework. Everything else is the
 oven, and it should just work.
 
 The mechanism that makes this real is containerisation. A container
-packages not just code but the entire runtime environment --- libraries,
-language version, dependencies --- so the environment a researcher uses
+packages not just code but the entire runtime environment (libraries,
+language version, dependencies) so the environment a researcher uses
 to develop a strategy is identical to the one that runs live. Moving
 between research, backtesting and production is a matter of changing
-configuration, not rewriting code. The familiar complaint --- ``it works
-on my machine'' --- loses its meaning when every machine runs the same
+configuration, not rewriting code. The familiar complaint, ``it works
+on my machine,'' loses its meaning when every machine runs the same
 machine.
 
 We organise the team in what we call a checkerboard structure rather
@@ -263,7 +263,7 @@ depth to engage seriously with the research.
 
 Building the platform means deciding what the foundation looks like
 before the first strategy is written. The temptation is to start with
-the interesting parts --- signal generation, portfolio construction, the
+the interesting parts: signal generation, portfolio construction, the
 models. Experience suggests this is the wrong order. Teams that skip the
 foundation and build strategies first end up with strategies that are
 hard to compare, hard to maintain and hard to trust. The foundation has
@@ -271,8 +271,8 @@ to come first, even when it feels slow.
 
 \textbf{Data API.} The data layer is where most platforms quietly fail.
 Not because data is technically hard to fetch, but because the failure
-modes are invisible. Point-in-time correctness --- ensuring that a query
-returns only what would have been known at a given historical moment ---
+modes are invisible. Point-in-time correctness (ensuring that a query
+returns only what would have been known at a given historical moment)
 is easy to get approximately right and difficult to get exactly right.
 Survivorship bias, look-ahead from revised data, misaligned timestamps:
 each of these can make a strategy look better in backtesting than it
@@ -281,8 +281,8 @@ behaviour the default and the incorrect behaviour structurally
 difficult. Getting this layer right is what everything else is built on.
 
 \textbf{Common strategy tooling.} The building blocks of quantitative
-strategies --- portfolio construction, signal combination, position
-sizing, transaction cost modelling --- are not proprietary. Every team
+strategies (portfolio construction, signal combination, position
+sizing, transaction cost modelling) are not proprietary. Every team
 needs them; most teams build their own versions. The result is that the
 same components exist in dozens of slightly different forms across the
 same organisation, each with slightly different assumptions and edge
@@ -303,8 +303,8 @@ passes a common standard is harder to champion with private metrics that
 nobody else uses.
 
 \textbf{Live monitoring.} Problems in production are not announced. A
-strategy that drifts --- signals weakening, execution quality degrading,
-positions creeping outside intended bounds --- will continue to run
+strategy that drifts (signals weakening, execution quality degrading,
+positions creeping outside intended bounds) will continue to run
 until something forces attention to it. By then the cost is real.
 Continuous observation of positions, P\&L attribution, signal behaviour
 and execution quality is not optional infrastructure. It is the
@@ -314,8 +314,8 @@ week.
 \textbf{Execution layer.} Strategies communicate intent through a
 standardised API; the execution layer translates that intent into
 orders, handles broker connectivity and manages the operational
-complexity of running strategies at scale. This is a platform component
---- something the team should not have to rebuild for every strategy. It
+complexity of running strategies at scale. This is a platform component,
+something the team should not have to rebuild for every strategy. It
 is discussed in detail in the Live Trading section.
 
 The platform must be built with researchers, not just for them. A
@@ -338,7 +338,7 @@ be broken.
 That said, a minimal foundation should exist before the first strategies
 are implemented. At minimum this means a working data API, a basic
 portfolio construction library and a consistent project structure
-enforced by Rhiza --- a tool that keeps every strategy repository
+enforced by Rhiza, a tool that keeps every strategy repository
 aligned with a common template. Without these in place, the first
 strategies will each invent their own solutions, and unpicking that
 fragmentation later is costly. A small shared foundation built early
@@ -347,30 +347,30 @@ pays back many times over.
 \subsection{Keeping the Platform
 Consistent}\label{keeping-the-platform-consistent}
 
-Solving fragmentation at the strategy level --- shared tooling, common
-data access, consistent analytics --- does not solve it at the
+Solving fragmentation at the strategy level (shared tooling, common
+data access, consistent analytics) does not solve it at the
 infrastructure level. A team that builds excellent shared libraries but
 allows each strategy repository to manage its own CI pipeline, its own
 linting configuration and its own Python version has solved half the
 problem. The scaffolding that enforces standards is as important as the
 standards themselves. A linting rule that is disabled in one repo, a CI
 check that has been bypassed in another, a security fix that landed in
-the template but was never propagated --- each of these is a small
+the template but was never propagated: each of these is a small
 crack. Across twenty repositories they become a maintenance burden that
 nobody fully owns and nobody can easily quantify.
 
 The standard response is to generate scaffolding once, at project
 creation, and leave it to each team to keep up. This works until the
-platform evolves --- and the platform always evolves. The moment the
+platform evolves, and the platform always evolves. The moment the
 canonical template changes, every existing repository is behind. Nobody
 notices until the divergence is severe enough to cause a problem, and by
 then it is spread across dozens of repos in dozens of different ways.
 
 \href{https://github.com/Jebel-Quant/rhiza-education}{Rhiza} was built
 on a different premise: scaffolding is not a one-time generation but a
-continuous synchronisation. When the central template changes --- a new
+continuous synchronisation. When the central template changes (a new
 CI workflow, an updated linting config, a change to the containerisation
-setup --- Rhiza opens a pull request in each downstream repo with a
+setup), Rhiza opens a pull request in each downstream repo with a
 clear diff of what changed. Owners review, adapt where needed and merge.
 Nothing is forced and nothing is missed. The scaffolding stays current
 the same way the code does: through a visible, reviewable change process
@@ -420,7 +420,7 @@ measure.
 
 \subsection{Live Trading}\label{live-trading}
 
-The traditional view of going live treats it as a deployment event --- a
+The traditional view of going live treats it as a deployment event: a
 moment of special procedures, checklists and risk. This architecture
 treats it as a promotion between environments. That distinction matters
 more than it might appear. When going live is a special event, it is
@@ -431,16 +431,16 @@ already run in an environment that was deliberately made
 indistinguishable from production.
 
 The mechanism is the separation of code from configuration. The
-container --- the fixed, versioned artifact that packages the code and
-its entire runtime environment --- does not change between research,
+container (the fixed, versioned artifact that packages the code and
+its entire runtime environment) does not change between research,
 backtesting, paper trading and live. What changes is the configuration
 file it reads: where to find data, which parameters to use, which
 execution venue to connect to, what risk limits to respect. The
 container has no knowledge of which environment it is in. It reads its
 configuration and runs. Moving a strategy to live is a one-line change.
 If something breaks, it would have broken in paper trading. If it does
-not break in paper trading, the team has genuine evidence --- not just
-hope --- that it will not break in live trading.
+not break in paper trading, the team has genuine evidence, not just
+hope, that it will not break in live trading.
 
 This separation also makes incidents recoverable. Every configuration
 file is versioned. Every deployment is a known container image combined
@@ -449,7 +449,7 @@ reconstruct exactly what was running and with what parameters. Rolling
 back is a configuration change, not an emergency deployment under
 pressure.
 
-Each strategy is implemented as a service with a standardised API --- a
+Each strategy is implemented as a service with a standardised API, a
 deliberate choice with consequences beyond convenience. A strategy that
 knows about brokers, about scaling, about order routing is a strategy
 that is hard to test in isolation, hard to replace components of, and
@@ -461,14 +461,14 @@ become safer by knowing more about the world it operates in. It becomes
 safer by knowing less.
 
 \textbf{Prime broker connectivity.} The strategy never communicates with
-the outside world directly. It expresses intent through its API --- buy
-this instrument, in this quantity, with this urgency --- and the
+the outside world directly. It expresses intent through its API (buy
+this instrument, in this quantity, with this urgency) and the
 platform's execution layer, part of the execution layer, handles
 everything else: translation into FIX or a proprietary protocol, order
 routing, fill reconciliation, position and margin queries with the prime
 broker. This boundary is among the most consequential in the system.
 Errors here are not silent; they are immediate and financial. Keeping
-the strategy clear of that complexity is not just good architecture ---
+the strategy clear of that complexity is not just good architecture:
 it is what makes the system safe to operate.
 
 Switching brokers or adding a new venue is a configuration change to the
@@ -483,9 +483,8 @@ absorbs so the strategy does not have to.
 The standardised strategy API is what makes professional risk management
 composable. Because every strategy expresses intent through the same
 interface, the execution layer can intercept, inspect and act on every
-order without the strategy knowing or caring. Pre-trade risk checks ---
-position limits, notional limits, concentration limits, maximum order
-sizes --- sit as middleware between the strategy's intent and the
+order without the strategy knowing or caring. Pre-trade risk checks (position limits, notional limits, concentration limits, maximum order
+sizes) sit as middleware between the strategy's intent and the
 market. The strategy does not implement them; it does not need to know
 they exist. They are enforced at the boundary, configured independently
 of the strategy code and versioned alongside everything else. Tightening
@@ -498,7 +497,7 @@ API is standardised, any system that speaks the same interface can
 attach to the execution layer: independent risk engines, prime broker
 risk controls, OMS and PMS systems, accounting and bookkeeping
 infrastructure. Professional risk management at scale requires
-components that a trading team should not be building from scratch ---
+components that a trading team should not be building from scratch:
 position reconciliation, P\&L attribution, regulatory reporting, margin
 calculations. The architecture makes it possible to plug these in
 without modifying the strategies that generate the orders. The strategy
@@ -509,15 +508,15 @@ This has a direct consequence for how risk is monitored in production.
 Because all order flow passes through a single execution layer,
 aggregate exposure across strategies is observable in one place. Gross
 and net exposure, drawdown against defined thresholds, execution quality
-and fill rates --- these are properties of the execution layer, not of
+and fill rates: these are properties of the execution layer, not of
 individual strategies. A strategy that begins behaving inconsistently
 with its historical profile surfaces at the layer that processes its
 orders, before the inconsistency becomes a loss.
 
 The kill switch is a first-class platform concept precisely because of
-this architecture. Stopping a strategy cleanly --- cancelling open
+this architecture. Stopping a strategy cleanly (cancelling open
 orders, unwinding positions in an orderly way, returning the system to a
-known state --- is possible because the execution layer has full
+known state) is possible because the execution layer has full
 visibility of what the strategy is doing and full authority to stop it.
 This is not an emergency procedure. It is something the team tests
 regularly, and it works because the architecture was designed with it in
@@ -529,8 +528,8 @@ The arrival of capable AI tools has changed one thing more than any
 other: the cost of turning an idea into a running experiment. That cost
 was always the hidden tax on quantitative research. A researcher with a
 sharp intuition about market structure would spend days implementing the
-infrastructure to test it --- data wrangling, signal construction,
-backtest scaffolding, performance reporting --- before learning whether
+infrastructure to test it (data wrangling, signal construction,
+backtest scaffolding, performance reporting) before learning whether
 the intuition was worth anything. Most of the time it was not, but the
 cost of finding out was high enough that fewer ideas got tested than
 should have.
@@ -540,15 +539,15 @@ it is that the ratio of thinking to implementation shifts, and ideas
 that were previously not worth the cost of testing become worth testing.
 A platform built on shared tools amplifies this further: AI works best
 when the environment is clean and the interfaces are consistent.
-Fragmented infrastructure and AI are a poor combination --- the model
+Fragmented infrastructure and AI are a poor combination: the model
 has no reliable context to work from. A clean, consistent platform makes
 AI more useful, not less relevant.
 
 This creates a risk the document would be incomplete not to name. Faster
 iteration means more experiments, which means more opportunities for
 overfitting. The discipline problems described in the Backtesting
-section --- look-ahead bias, data snooping, the temptation to tweak
-until the out-of-sample period looks good --- do not disappear when
+section (look-ahead bias, data snooping, the temptation to tweak
+until the out-of-sample period looks good) do not disappear when
 iteration is cheap. They get worse. A researcher who can run fifty
 backtests in the time it previously took to run five will, without
 discipline, find five times as many spurious results. The platform
@@ -558,9 +557,8 @@ both.
 
 In production, AI is most valuable where humans are least reliable:
 sustained attention to continuous streams of data. A live strategy
-generates thousands of data points a day. Monitoring for anomalies ---
-fills that do not match expectations, signals that drift, execution
-quality that degrades --- requires exactly the kind of pattern
+generates thousands of data points a day. Monitoring for anomalies (fills that do not match expectations, signals that drift, execution
+quality that degrades) requires exactly the kind of pattern
 recognition that AI handles well and humans find tedious. Problems
 surface faster. The kill switch gets pulled sooner.
 
@@ -577,7 +575,7 @@ friction. The work it exposes is still the work.
 
 The problems described in this document are not technical failures. They
 are organisational ones. The handover model, the personal scripts, the
-reinvented wheels --- none of these happened because teams lacked talent
+reinvented wheels: none of these happened because teams lacked talent
 or ambition. They happened because the structures in place made sharing
 hard, translation inevitable and accountability diffuse. Better tooling
 alone does not fix that. The platform has to be accompanied by a
@@ -587,8 +585,8 @@ What this document argues for is not a specific technology stack but a
 set of principles: shared environment over translation, quality at every
 stage over inspection at the end, common infrastructure over individual
 reinvention, accountability through shared ownership over alibi through
-separation. The specific tools --- containers, Rhiza, a standardised
-execution API --- are expressions of those principles, not the
+separation. The specific tools (containers, Rhiza, a standardised
+execution API) are expressions of those principles, not the
 principles themselves. A team that internalises the principles will make
 good decisions about the tools. A team that adopts the tools without the
 principles will find ways to recreate the old problems inside the new
@@ -596,7 +594,7 @@ infrastructure.
 
 It is worth being honest about what this way of working asks of people.
 A researcher who has built their own tools, their own scripts, their own
-way of doing things is being asked to give that up --- or at least to
+way of doing things is being asked to give that up, or at least to
 hold it more loosely. An engineer who owns a pipeline is being asked to
 share that ownership with the team. This is not a small ask. The
 autonomy that comes with personal ownership is genuinely valuable; it is
@@ -611,7 +609,7 @@ platform exists to make sure that the search for it is not cluttered by
 problems that have already been solved.
 
 The ideas described here are not untested. A small number of firms have
-built in roughly this way for some time --- unified environments, shared
+built in roughly this way for some time: unified environments, shared
 infrastructure, researchers and engineers working as a single team
 rather than adjacent ones. Their ability to iterate quickly, compound
 knowledge and operate at scale is visible in their results. The gap
@@ -619,10 +617,10 @@ between those firms and those still working under the handover model is
 not primarily a gap in talent or capital. It is a gap in how the work
 is organised.
 
-The challenges this document points towards --- transition paths for
+The challenges this document points towards (transition paths for
 existing platforms, the organisational work of shared ownership, the
-right boundaries between research and production at different scales
---- are ones we are actively thinking about. Readers working on the
+right boundaries between research and production at different scales)
+are ones we are actively thinking about. Readers working on the
 same problems are welcome to reach out at thomas@jqr.ae.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
