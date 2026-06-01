@@ -1,0 +1,47 @@
+name: Build PDF
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - vision.tex
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-latex-extra
+
+      - name: Compile vision.tex
+        run: |
+          set -euo pipefail
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          xelatex -halt-on-error -interaction=nonstopmode vision.tex
+          test -f vision.pdf
+
+      - name: Deploy PDF to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          include_files: vision.pdf
+          keep_files: false
+          commit_message: "Update vision.pdf"

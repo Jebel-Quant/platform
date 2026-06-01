@@ -1,8 +1,0 @@
-[project]
-site_name = "Jebel Quant Research"
-site_url = "https://jebel-quant.github.io/platform/"
-site_description = "A Technology Vision for Quantitative Trading"
-site_author = "Thomas Schmelzer"
-
-[project.theme]
-variant = "modern"

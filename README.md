@@ -10,7 +10,7 @@ rebuilding common components from scratch.
 
 The thinking behind the platform is set out in full in the vision document:
 
-**[A Technology Vision for Quantitative Trading (PDF)](https://raw.githubusercontent.com/Jebel-Quant/platform/gh-pages/vision.pdf)**
+**[A Technology Vision for Quantitative Trading (PDF)](https://jebel-quant.github.io/platform/vision.pdf)**
 
 The document covers the problems with the traditional research-to-production handover,
 the case for a shared environment, the kitchen analogy for team structure, and the
