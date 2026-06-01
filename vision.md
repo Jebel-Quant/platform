@@ -200,20 +200,25 @@ foundation built early pays back many times over.
 
 ## Keeping the Platform Consistent
 
-As strategies multiply, each living in its own repository, a new fragmentation risk emerges. Left unmanaged, a
-collection of strategy repos quickly becomes a zoo. CI workflows diverge. Python versions drift. Linting
-configs split. A security fix lands in one repo and is missed by the rest. The same fragmentation that plagued the old
-world of personal scripts reappears at the infrastructure level.
+Solving fragmentation at the strategy level — shared tooling, common data access, consistent analytics — does not
+solve it at the infrastructure level. A team that builds excellent shared libraries but allows each strategy repository
+to manage its own CI pipeline, its own linting configuration and its own Python version has solved half the problem.
+The scaffolding that enforces standards is as important as the standards themselves. A linting rule that is disabled
+in one repo, a CI check that has been bypassed in another, a security fix that landed in the template but was never
+propagated — each of these is a small crack. Across twenty repositories they become a maintenance burden that nobody
+fully owns and nobody can easily quantify.
 
-[Rhiza](https://github.com/Jebel-Quant/rhiza-education) was built to address this directly. Rather than generating
-project scaffolding once and walking away, it keeps every strategy repository continuously aligned with the platform's
-canonical standards. When the central template changes — a new CI workflow, an updated linting config, a change to the
-containerisation setup — Rhiza opens a pull request in each downstream repo with a clear diff of what changed. Owners
-review, adapt where needed and merge. Nothing is forced and nothing is missed.
+The standard response is to generate scaffolding once, at project creation, and leave it to each team to keep up.
+This works until the platform evolves — and the platform always evolves. The moment the canonical template changes,
+every existing repository is behind. Nobody notices until the divergence is severe enough to cause a problem, and by
+then it is spread across dozens of repos in dozens of different ways.
 
-This is the infrastructure equivalent of shared strategy tooling. Researchers should not reimplement portfolio
-construction from scratch, and developers should not be manually maintaining CI pipelines in every repo. Rhiza keeps the
-scaffolding consistent so the team's attention stays on what is inside it.
+[Rhiza](https://github.com/Jebel-Quant/rhiza-education) was built on a different premise: scaffolding is not a
+one-time generation but a continuous synchronisation. When the central template changes — a new CI workflow, an
+updated linting config, a change to the containerisation setup — Rhiza opens a pull request in each downstream repo
+with a clear diff of what changed. Owners review, adapt where needed and merge. Nothing is forced and nothing is
+missed. The scaffolding stays current the same way the code does: through a visible, reviewable change process rather
+than manual propagation or silent drift.
 
 ## Backtesting
 
@@ -245,29 +250,32 @@ interest and some scepticism in equal measure.
 
 ## Live Trading
 
-When a strategy goes live, the cost of any discrepancy between research and production becomes real and immediate. A
-backtest that behaves differently from the live system, because of an environment mismatch or a parameter misconfigured
-during deployment, can produce losses that no amount of prior testing would have flagged. Closing this gap is a core
-design requirement, not a convenience.
+The traditional view of going live treats it as a deployment event — a moment of special procedures, checklists and
+risk. This architecture treats it as a promotion between environments. That distinction matters more than it might
+appear. When going live is a special event, it is also a moment of maximum uncertainty: the code has never run in
+this environment, with these configurations, against this broker. When it is a promotion, it is a moment of minimum
+uncertainty: the strategy has already run in an environment that was deliberately made indistinguishable from
+production.
 
-Proximity is the answer. The container a researcher uses to develop and backtest a strategy is the same container that
-runs in production. There is no reimplementation, no port, no translation step where something can silently go wrong.
+The mechanism is the separation of code from configuration. The container — the fixed, versioned artifact that
+packages the code and its entire runtime environment — does not change between research, backtesting, paper trading
+and live. What changes is the configuration file it reads: where to find data, which parameters to use, which
+execution venue to connect to, what risk limits to respect. The container has no knowledge of which environment it
+is in. It reads its configuration and runs. Moving a strategy to live is a one-line change. If something breaks, it
+would have broken in paper trading. If it does not break in paper trading, the team has genuine evidence — not just
+hope — that it will not break in live trading.
 
-What changes between environments is the configuration, not the code. The container is a fixed, versioned artifact.
-Configuration files tell it where to find data, which parameters to use, what risk limits to respect and which execution
-venue to connect to. Moving a strategy from backtesting to paper trading to live means changing the configuration it
-runs against. The container has no knowledge of which environment it is in. It reads its configuration and runs.
+This separation also makes incidents recoverable. Every configuration file is versioned. Every deployment is a known
+container image combined with a known configuration state. If something goes wrong, the team can reconstruct exactly
+what was running and with what parameters. Rolling back is a configuration change, not an emergency deployment under
+pressure.
 
-This separation of code from configuration is what makes promotion between environments safe and auditable. Every
-configuration file is versioned. Every deployment is a known container image combined with a known configuration state.
-If something goes wrong in production, the team can reconstruct exactly what was running and with what parameters.
-Rolling back is a configuration change, not an emergency deployment.
-
-Each strategy is implemented as a service with a standardised API. This is a deliberate architectural choice: once the
-strategy exposes a clean interface, execution logic and scaling concerns can be handled by a separate layer entirely.
-The strategy itself does not need to know how many instances are running, how orders are routed, or how load is
-distributed. That separation keeps the strategy code focused on what it is actually good at — generating signals and
-expressing intent — while the infrastructure layer handles the operational complexity of running it at scale.
+Each strategy is implemented as a service with a standardised API — a deliberate choice with consequences beyond
+convenience. A strategy that knows about brokers, about scaling, about order routing is a strategy that is hard to
+test in isolation, hard to replace components of, and hard to reason about when something goes wrong at 3am. The
+standardised API is a contract: the strategy satisfies it by expressing intent; the infrastructure honours it by
+handling execution. Each side can be tested, replaced and reasoned about independently. The strategy does not become
+safer by knowing more about the world it operates in. It becomes safer by knowing less.
 
 **Prime broker connectivity.** The strategy never communicates with the outside world directly. It expresses intent
 through its API — buy this instrument, in this quantity, with this urgency — and the platform's execution layer,
