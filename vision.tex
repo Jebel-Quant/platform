@@ -610,6 +610,22 @@ The edge in quantitative trading is scarce and hard to find. The
 platform exists to make sure that the search for it is not cluttered by
 problems that have already been solved.
 
+The ideas described here are not untested. A small number of firms have
+built in roughly this way for some time --- unified environments, shared
+infrastructure, researchers and engineers working as a single team
+rather than adjacent ones. Their ability to iterate quickly, compound
+knowledge and operate at scale is visible in their results. The gap
+between those firms and those still working under the handover model is
+not primarily a gap in talent or capital. It is a gap in how the work
+is organised.
+
+The challenges this document points towards --- transition paths for
+existing platforms, the organisational work of shared ownership, the
+right boundaries between research and production at different scales
+--- are ones we are actively thinking about. Readers working on the
+same problems are welcome to reach out at
+\href{mailto:thomas@jqr.ae}{thomas@jqr.ae}.
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{Acknowledgements}\label{acknowledgements}
@@ -621,51 +637,8 @@ first tested in conversation with him.
 \textbf{In memory of Alexander Belopolsky} --- our often heated debates
 made me a much stronger engineer than I would otherwise have been.
 
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\subsection{Appendix: Jebel Quant
-Research}\label{appendix-jebel-quant-research}
-
-Jebel Quant Research develops the tools and infrastructure that the
-platform described here is built on. The work spans several areas.
-
-\textbf{Project infrastructure.} Rhiza is the first publicly available
-tool from Jebel Quant Research. It solves the repo zoo problem for
-Python-heavy organisations by keeping project scaffolding continuously
-aligned across many repositories through a pull request based sync
-mechanism. It is already in use beyond Jebel Quant, including at
-Stanford's CVXGRP and Janus Henderson. Relevant repos:
-\href{https://github.com/Jebel-Quant/rhiza}{rhiza},
-\href{https://github.com/Jebel-Quant/rhiza-cli}{rhiza-cli},
-\href{https://github.com/Jebel-Quant/rhiza-tools}{rhiza-tools},
-\href{https://github.com/Jebel-Quant/rhiza-hooks}{rhiza-hooks},
-\href{https://github.com/Jebel-Quant/rhiza-education}{rhiza-education}.
-
-\textbf{Data access.} A clean, versioned API into market data is
-foundational to everything else. Jebel Quant Research has developed
-tooling for sourcing, normalising and serving data across asset classes,
-with a consistent interface that works identically in research and
-production.
-
-\textbf{Portfolio construction.} Drawing on work developed in
-collaboration with Stephen Boyd's group at Stanford, Jebel Quant
-Research has built portfolio construction tools grounded in convex
-optimisation. These cover mean-variance optimisation, transaction cost
-aware rebalancing and risk-constrained allocation. Relevant repos:
-\href{https://github.com/Jebel-Quant/linalg}{linalg},
-\href{https://github.com/Jebel-Quant/basanos}{basanos}.
-
-\textbf{Signal combination and performance analytics.} Tools for
-combining signals from multiple sources, evaluating strategy performance
-consistently and attributing returns across factors and time periods.
-The goal is a shared analytical vocabulary across the team rather than
-each researcher maintaining their own metrics. Relevant repos:
-\href{https://github.com/Jebel-Quant/jquantstats}{jquantstats}.
-
-\textbf{Live trading infrastructure.} The container-based deployment
-model, configuration management framework and prime broker connectivity
-layer described in this document are products of Jebel Quant Research.
-They are designed to be reusable across strategies and, where
-appropriate, across organisations.
+We are grateful to the early adopters who have put Rhiza to work in
+their production environments. Their feedback has shaped the tool in
+ways that no amount of internal testing could have.
 
 \end{document}
