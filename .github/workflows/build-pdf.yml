@@ -1,0 +1,46 @@
+name: Build vision.pdf
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - vision.md
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    # Skip if the commit message contains [skip ci] to avoid loops
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pandoc and LaTeX dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pandoc \
+            texlive-xetex \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-latex-extra \
+            fonts-texgyre
+
+      - name: Compile vision.md to vision.pdf
+        run: |
+          pandoc vision.md -o vision.pdf \
+            --pdf-engine=xelatex \
+            -V geometry:margin=2.5cm \
+            -V fontsize=11pt \
+            -V linestretch=1.4 \
+            -V mainfont="TeX Gyre Termes" \
+            -V linkcolor=blue
+
+      - name: Commit vision.pdf back to repository
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Rebuild vision.pdf [skip ci]"
+          file_pattern: vision.pdf
