@@ -291,27 +291,33 @@ kitchen absorbs so the strategy does not have to.
 
 ## Risk Management
 
-Risk management is not a feature that gets added at the end. It is a layer that runs through the entire platform, from
-the moment a strategy is being designed to every order it places in production.
+The standardised strategy API is what makes professional risk management composable. Because every strategy expresses
+intent through the same interface, the execution layer can intercept, inspect and act on every order without the
+strategy knowing or caring. Pre-trade risk checks — position limits, notional limits, concentration limits, maximum
+order sizes — sit as middleware between the strategy's intent and the market. The strategy does not implement them;
+it does not need to know they exist. They are enforced at the boundary, configured independently of the strategy
+code and versioned alongside everything else. Tightening a limit during a volatile period is a configuration change.
+It does not require touching the strategy, redeploying a container or restarting a process.
 
-At the research stage, the platform provides tools for understanding the risk profile of a strategy before it goes
-anywhere near live capital. This means exposure analysis across factors, asset classes and geographies, as well as
-realistic stress testing against historical regimes. A strategy that looks attractive on raw returns but concentrates
-risk in ways the researcher has not examined is not ready, and the platform should make that visible early.
+The same composability extends to external tools. Because the strategy API is standardised, any system that speaks
+the same interface can attach to the execution layer: independent risk engines, prime broker risk controls, OMS and
+PMS systems, accounting and bookkeeping infrastructure. Professional risk management at scale requires components that
+a trading team should not be building from scratch — position reconciliation, P&L attribution, regulatory reporting,
+margin calculations. The architecture makes it possible to plug these in without modifying the strategies that
+generate the orders. The strategy is a signal source. What happens to the signal after it leaves the strategy is the
+platform's responsibility.
 
-At the point of deployment, pre-trade risk checks sit between the strategy's intent and the execution layer. Position
-limits, notional limits, sector and instrument concentration limits, and maximum order sizes are enforced before any
-order leaves the system. These limits are, like everything else, configuration. They can be tightened or loosened
-without touching the strategy code, and every change is versioned and auditable.
+This has a direct consequence for how risk is monitored in production. Because all order flow passes through a single
+execution layer, aggregate exposure across strategies is observable in one place. Gross and net exposure, drawdown
+against defined thresholds, execution quality and fill rates — these are properties of the execution layer, not of
+individual strategies. A strategy that begins behaving inconsistently with its historical profile surfaces at the
+layer that processes its orders, before the inconsistency becomes a loss.
 
-In production, the platform monitors risk continuously. Drawdown limits trigger alerts and, if configured, automatic
-position reduction or a full halt. Gross and net exposure are tracked in real time against defined thresholds. If a
-strategy begins behaving in a way that is inconsistent with its historical risk profile, the monitoring layer surfaces
-that before it becomes a problem.
-
-The kill switch is a first-class platform concept. Every live strategy can be stopped cleanly and immediately, positions
-can be unwound in an orderly way, and the system returns to a known state. This is not an emergency procedure bolted on
-as an afterthought. It is something the team tests regularly, the same way a kitchen tests its fire procedures.
+The kill switch is a first-class platform concept precisely because of this architecture. Stopping a strategy cleanly
+— cancelling open orders, unwinding positions in an orderly way, returning the system to a known state — is possible
+because the execution layer has full visibility of what the strategy is doing and full authority to stop it. This is
+not an emergency procedure. It is something the team tests regularly, and it works because the architecture was
+designed with it in mind from the start.
 
 ## The Impact of AI
 
