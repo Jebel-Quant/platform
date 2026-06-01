@@ -6,13 +6,11 @@
 portfolio construction to live execution and repo management. This document sets out the thinking behind that work.*
 
 *These are my personal views on how a quantitative trading platform should be built. I have spent two decades working
-across systematic hedge funds, high-frequency trading, family offices and sovereign wealth funds. The practices I
+across systematic hedge funds, high-frequency trading, family offices and sovereign wealth funds. Before any of that,
+I trained as a professional mechanic at AUDI and spent a summer assisting in their quality labs. The practices I
 describe in the early sections were perfectly reasonable at the time. Technology has moved on, and I think the way we
-build and run these platforms should move on too.*
-
-*Before finance, I trained and qualified as a professional mechanic at AUDI. As a student I spent a summer assisting in
-their quality labs. When I reach for analogies about how precision work gets done — kitchens, assembly lines, shared
-standards — I am drawing on direct experience, not metaphor.*
+build and run these platforms should move on too. When I reach for analogies about how precision work gets done —
+kitchens, assembly lines, shared standards — I am drawing on direct experience, not metaphor.*
 
 ## The Old Approach
 
@@ -144,10 +142,11 @@ skills, and most developers have enough quantitative depth to engage seriously w
 
 ## Building the Kitchen
 
-Building the platform means deciding what belongs in every kitchen regardless of what is being cooked. The temptation
-is to start with the interesting parts — signal generation, portfolio construction, the models. Experience suggests
-this is the wrong order. Teams that skip the foundation and build strategies first end up with strategies that are hard
-to compare, hard to maintain and hard to trust. The foundation has to come first, even when it feels slow.
+Building the platform means deciding what the foundation looks like before the first strategy is written. The
+temptation is to start with the interesting parts — signal generation, portfolio construction, the models. Experience
+suggests this is the wrong order. Teams that skip the foundation and build strategies first end up with strategies
+that are hard to compare, hard to maintain and hard to trust. The foundation has to come first, even when it feels
+slow.
 
 **Data API.** The data layer is where most platforms quietly fail. Not because data is technically hard to fetch, but
 because the failure modes are invisible. Point-in-time correctness — ensuring that a query returns only what would
