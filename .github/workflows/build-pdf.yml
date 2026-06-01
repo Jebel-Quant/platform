@@ -38,7 +38,6 @@ jobs:
           mkdir -p _pdf
           cp vision.pdf _pdf/vision.pdf
 
-
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
