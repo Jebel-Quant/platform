@@ -36,12 +36,13 @@ jobs:
           xelatex -halt-on-error -interaction=nonstopmode vision.tex
           xelatex -halt-on-error -interaction=nonstopmode vision.tex
           test -f vision.pdf
+          mkdir -p _pdf
+          cp vision.pdf _pdf/vision.pdf
 
       - name: Deploy PDF to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          include_files: vision.pdf
+          publish_dir: _pdf
           keep_files: false
           commit_message: "Update vision.pdf"
