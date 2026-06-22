@@ -172,7 +172,7 @@ target. Automated regression tests that compare research and production
 outputs on the same inputs catch divergence early, before it reaches
 live capital. These are real improvements and worth making. But they are
 patches. They reduce the cost of the translation step; they do not
-eliminate it. The fundamental problem is that translation step itself
+eliminate it. The fundamental problem is the translation step itself:
 the moment where one representation of an idea becomes another, and
 where something is always lost or changed in the crossing.
 
@@ -193,14 +193,8 @@ step.\footnote{The idea of a unified research-to-production environment
   backtesting and execution within a single environment, with the
   explicit aim of carrying a strategy from idea to live trading without
   reimplementation. Where we differ is less in that goal, which we
-  share, than in the means and the framing. These are proprietary,
-  enterprise-scale platforms, typically licensed and hosted as a suite;
-  our approach is built on open, container-based primitives that are
-  language-agnostic and composable at the edges, so that external risk,
-  OMS and prime-broker systems plug in rather than being bought as one.
-  More fundamentally, what this document describes is not only a platform
-  but a way of working. A team can license an excellent platform and
-  still run the handover model around it.}
+  share, than in the means and the framing, discussed in the Build or
+  Buy section below.}
 
 The old handover model borrowed, implicitly, from an outdated idea of
 the factory: one group does its work and passes the output down the
@@ -323,9 +317,9 @@ depth to engage seriously with the research.
 
 \subsection{Build or Buy}\label{build-or-buy}
 
-Naming Beacon and Deltix invites the obvious question. If platforms that
-unify research and production already exist, and can be bought, why build
-at all? It is the oldest question in enterprise software, and the honest
+Commercial platforms such as Beacon and Deltix invite the obvious
+question. If platforms that unify research and production already exist,
+and can be bought, why build at all? It is the oldest question in enterprise software, and the honest
 answer is that it is the wrong question as posed. Build or buy is not a
 binary, and treating it as one is how teams reach both bad extremes: the
 team that builds everything, including the commodity plumbing that
@@ -575,7 +569,7 @@ safer by knowing less.
 \textbf{Prime broker connectivity.} The strategy never communicates with
 the outside world directly. It expresses intent through its API (buy
 this instrument, in this quantity, with this urgency) and the
-platform's execution layer, part of the execution layer, handles
+platform's execution layer handles
 everything else: translation into FIX or a proprietary protocol, order
 routing, fill reconciliation, position and margin queries with the prime
 broker. This boundary is among the most consequential in the system.
