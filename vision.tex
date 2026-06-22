@@ -180,7 +180,24 @@ where something is always lost or changed in the crossing.
 
 Our idea is built around a single environment for both research and
 production. Researchers express ideas in high-level terms and the
-platform carries them through to execution without a translation step.
+platform carries them through to execution without a translation
+step.\footnote{The idea of a unified research-to-production environment
+  is not new, and it would be remiss not to acknowledge the most
+  prominent commercial precedent. Deltix (now part of EPAM Systems,
+  which acquired it in 2020) has offered a platform along these lines
+  for years: TimeBase for market data, QuantOffice for research and
+  backtesting, and an execution server for live trading, with the
+  explicit aim of carrying a strategy across that boundary without
+  reimplementation. Where we differ is less in the goal than in the
+  means. Deltix is a proprietary, largely .NET-centric suite that
+  predates the modern machine-learning ecosystem; our approach is
+  container-based and language-agnostic, built so that the PyTorch-era
+  tooling discussed above is native rather than foreign, and open at its
+  edges so that external risk, OMS and prime-broker systems can be
+  composed in rather than bought as a single suite. More fundamentally,
+  what this document describes is not only a platform but a way of
+  working. A team can license an integrated product and still run the
+  handover model around it.}
 
 The old handover model borrowed, implicitly, from an outdated idea of
 the factory: one group does its work and passes the output down the
