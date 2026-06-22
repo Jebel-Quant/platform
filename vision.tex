@@ -321,6 +321,56 @@ responsibility for what they ship. We assume most researchers have
 strong development skills, and most developers have enough quantitative
 depth to engage seriously with the research.
 
+\subsection{Build or Buy}\label{build-or-buy}
+
+Naming Beacon and Deltix invites the obvious question. If platforms that
+unify research and production already exist, and can be bought, why build
+at all? It is the oldest question in enterprise software, and the honest
+answer is that it is the wrong question as posed. Build or buy is not a
+binary, and treating it as one is how teams reach both bad extremes: the
+team that builds everything, including the commodity plumbing that
+confers no advantage, and the team that buys everything, including the
+edge that was the only thing worth having.
+
+The kitchen analogy already contains the principle. A chef buys the oven
+and does not cook the dish from a packet. The art is in knowing which is
+which. Commodity infrastructure (data storage, container orchestration,
+backtesting plumbing, broker connectivity) is the oven: hard to build
+well, conferring no edge once built, and no reason to build what can be
+adopted. The signals, the models, the risk framework are the dish. They
+are the only reason the team exists, and they are never bought.
+
+The interesting category is the one in between, and it is where the
+enterprise platforms sit. Beacon and Deltix are not ovens; they are
+fitted kitchens, sold whole. Buying one solves a great deal at once, and
+for some institutions that is the right trade. But a fitted kitchen is
+built to its maker's plan. The cost is real, the pricing assumes an
+institution of a certain size, and the workflow becomes the vendor's
+workflow. You adapt to the platform rather than the platform to you, and
+the components you would most like to swap are the ones most welded in.
+Lock-in is not a failure of these products; it is their business model.
+
+Our position is the third option the binary hides. Assemble the platform
+from open, container-based primitives: adopt the commodity layers,
+compose best-of-breed components at the edges, and build only the parts
+that are genuinely yours. This is more work than buying a suite and far
+less than building one. It keeps cost proportionate to the team rather
+than to an enterprise licence, it avoids welding the team to one
+vendor's roadmap, and it leaves every boundary open so a better
+component can be substituted when it appears. It is also the only option
+that scales down: a small team priced out of an enterprise platform can
+still build this way.
+
+There is one thing here that cannot be bought at all, and it is the most
+important. The operating model (the checkerboard, shared ownership,
+quality at every stage, the kitchen rather than the factory) is not a
+product. No licence confers it. A team can buy the best platform in the
+world and run the handover model around it, reconciling between
+departments exactly as before, and most of the value leaks away at the
+seams. Build or buy is a question about software. The harder question,
+the one this document is really about, is how the people work. That part
+is always built.
+
 \subsection{Building the Kitchen}\label{building-the-kitchen}
 
 Building the platform means deciding what the foundation looks like
