@@ -182,22 +182,25 @@ Our idea is built around a single environment for both research and
 production. Researchers express ideas in high-level terms and the
 platform carries them through to execution without a translation
 step.\footnote{The idea of a unified research-to-production environment
-  is not new, and it would be remiss not to acknowledge the most
-  prominent commercial precedent. Deltix (now part of EPAM Systems,
-  which acquired it in 2020) has offered a platform along these lines
-  for years: TimeBase for market data, QuantOffice for research and
-  backtesting, and an execution server for live trading, with the
-  explicit aim of carrying a strategy across that boundary without
-  reimplementation. Where we differ is less in the goal than in the
-  means. Deltix is a proprietary, largely .NET-centric suite that
-  predates the modern machine-learning ecosystem; our approach is
-  container-based and language-agnostic, built so that the PyTorch-era
-  tooling discussed above is native rather than foreign, and open at its
-  edges so that external risk, OMS and prime-broker systems can be
-  composed in rather than bought as a single suite. More fundamentally,
-  what this document describes is not only a platform but a way of
-  working. A team can license an integrated product and still run the
-  handover model around it.}
+  is not new, and it would be remiss not to acknowledge the prior art.
+  Its origins trace to SecDB, the integrated trading-and-risk system
+  built at Goldman Sachs from the 1990s, and to its descendants Athena
+  (JP Morgan) and Quartz (Bank of America Merrill Lynch). The most
+  prominent platforms bringing this approach to the wider market are
+  Beacon (founded in 2014 by SecDB and Athena alumni, Python-native,
+  acquired by Clearwater Analytics in 2025) and Deltix (now part of EPAM
+  Systems, which acquired it in 2020), each offering data, research,
+  backtesting and execution within a single environment, with the
+  explicit aim of carrying a strategy from idea to live trading without
+  reimplementation. Where we differ is less in that goal, which we
+  share, than in the means and the framing. These are proprietary,
+  enterprise-scale platforms, typically licensed and hosted as a suite;
+  our approach is built on open, container-based primitives that are
+  language-agnostic and composable at the edges, so that external risk,
+  OMS and prime-broker systems plug in rather than being bought as one.
+  More fundamentally, what this document describes is not only a platform
+  but a way of working. A team can license an excellent platform and
+  still run the handover model around it.}
 
 The old handover model borrowed, implicitly, from an outdated idea of
 the factory: one group does its work and passes the output down the
